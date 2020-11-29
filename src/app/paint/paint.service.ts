@@ -6,15 +6,15 @@ import { Injectable } from '@angular/core';
 export class PaintService {
   private canvas: HTMLCanvasElement = null;
   private ctx: CanvasRenderingContext2D;
-  private infiniteX = Infinity;
-  private infiniteY = Infinity;
-  private colorHue = 0;
+  private prevX = Infinity;
+  private prevY = Infinity;
+  private colorHue = 1;
 
   initialize(mountPoint: HTMLElement): void {
     this.canvas = mountPoint.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = 800;
-    this.canvas.height = 800;
+    this.canvas.width = 1700;
+    this.canvas.height = 850;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = 30;
@@ -23,13 +23,11 @@ export class PaintService {
   paint({ clientX, clientY }): void {
     this.ctx.strokeStyle = `hsl(${this.colorHue}, 100%, 60%)`;
     this.ctx.beginPath();
-    //if (Math.abs(infiniteX - clientX) < 50 && Math.abs(infiniteY - clientY) < 50) {
-    this.ctx.moveTo(this.infiniteX, this.infiniteY);
-    //}
+    this.ctx.moveTo(this.prevX, this.prevY);
     this.ctx.lineTo(clientX, clientY);
     this.ctx.stroke();
-    this.infiniteX = clientX;
-    this.infiniteY = clientY;
+    this.prevX = clientX;
+    this.prevY = clientY;
     this.colorHue++;
   }
 
@@ -39,8 +37,8 @@ export class PaintService {
   }
 
   breakLine(): void {
-    this.infiniteX = Infinity;
-    this.infiniteY = Infinity;
+    this.prevX = Infinity;
+    this.prevY = Infinity;
   }
 
   setSize(size: number): void {

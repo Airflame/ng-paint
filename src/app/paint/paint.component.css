@@ -5,9 +5,11 @@
 }
 canvas {
   box-shadow: 0px 0px 10px 0px;
-  /* position: relative; */
   cursor: crosshair
 }
 div {
   margin: 10px
+}
+.size-slider {
+  width: 1200px;
 }
