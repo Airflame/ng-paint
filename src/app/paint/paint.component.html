@@ -2,5 +2,7 @@
 <div>
   <mat-slider class="size-slider" thumbLabel
               min="1" max="600" step="1" value="30" (change)="setBrushSize($event)"></mat-slider>
+  <mat-slider class="size-slider" thumbLabel
+              min="-100" max="100" step="1" value="0" (input)="setBrightness($event)"></mat-slider>
   <button mat-raised-button (click)="clearCanvas()">Clear</button>
 </div>

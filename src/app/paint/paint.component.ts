@@ -50,6 +50,10 @@ export class PaintComponent implements OnInit {
   public setBrushSize(event): void {
     this.paintSvc.setSize(event.value);
   }
+
+  public setBrightness(event): void {
+    this.paintSvc.setBrightness(event.value);
+  }
 }
 
 // tslint:disable-next-line:typedef

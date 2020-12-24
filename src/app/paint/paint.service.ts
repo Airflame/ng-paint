@@ -9,6 +9,7 @@ export class PaintService {
   private prevX = Infinity;
   private prevY = Infinity;
   private colorHue = 1;
+  private imageData: ImageData;
 
   initialize(mountPoint: HTMLElement): void {
     this.canvas = mountPoint.querySelector('canvas');
@@ -29,11 +30,13 @@ export class PaintService {
     this.prevX = clientX;
     this.prevY = clientY;
     this.colorHue++;
+    this.imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
   }
 
   clear(): void {
     this.breakLine();
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
   }
 
   breakLine(): void {
@@ -43,5 +46,20 @@ export class PaintService {
 
   setSize(size: number): void {
     this.ctx.lineWidth = size;
+  }
+
+  setBrightness(brightness: number): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      data[p]     = brightness + data[p];     // red
+      data[p + 1] = brightness + data[p + 1]; // green
+      data[p + 2] = brightness + data[p + 2];
+    }
+    this.ctx.putImageData(imageData, 0, 0);
   }
 }
