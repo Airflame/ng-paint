@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {PaintService} from './paint.service';
-import {fromEvent} from 'rxjs';
+import {fromEvent, merge} from 'rxjs';
 import {mergeMap, takeLast, takeUntil} from 'rxjs/operators';
 
 @Component({
@@ -24,8 +24,10 @@ export class PaintComponent implements OnInit {
     const move$ = fromEvent<MouseEvent>(canvas, 'mousemove');
     const down$ = fromEvent<MouseEvent>(canvas, 'mousedown');
     const up$ = fromEvent<MouseEvent>(canvas, 'mouseup');
+    const leave$ = fromEvent<MouseEvent>(canvas, 'mouseleave');
+    const break$ = merge(up$, leave$);
     const paints$ = down$.pipe(
-      mergeMap(down => move$.pipe(takeUntil(up$)))
+      mergeMap(down => move$.pipe(takeUntil(break$)))
     );
     // tslint:disable-next-line:no-console
     down$.subscribe(console.info);
@@ -38,7 +40,7 @@ export class PaintComponent implements OnInit {
       this.paintSvc.paint({ clientX, clientY });
     });
 
-    up$.subscribe((event) => {
+    break$.subscribe((event) => {
       this.paintSvc.breakLine();
     });
   }

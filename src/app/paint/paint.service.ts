@@ -56,8 +56,8 @@ export class PaintService {
     );
     const data = imageData.data;
     for (let p = 0; p < data.length; p += 4) {
-      data[p]     = brightness + data[p];     // red
-      data[p + 1] = brightness + data[p + 1]; // green
+      data[p]     = brightness + data[p];
+      data[p + 1] = brightness + data[p + 1];
       data[p + 2] = brightness + data[p + 2];
     }
     this.ctx.putImageData(imageData, 0, 0);
