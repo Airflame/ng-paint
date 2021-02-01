@@ -9,6 +9,7 @@ import {mergeMap, takeLast, takeUntil} from 'rxjs/operators';
   styleUrls: ['./paint.component.css']
 })
 export class PaintComponent implements OnInit {
+  private file: File;
 
   constructor(private paintSvc: PaintService, private elRef: ElementRef) { }
 
@@ -55,6 +56,11 @@ export class PaintComponent implements OnInit {
 
   public setBrightness(event): void {
     this.paintSvc.setBrightness(event.value);
+  }
+
+  handleFileInput(target: EventTarget): void {
+    this.file = (target as HTMLInputElement).files.item(0);
+    this.paintSvc.loadImage(this.file);
   }
 }
 

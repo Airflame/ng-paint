@@ -62,4 +62,26 @@ export class PaintService {
     }
     this.ctx.putImageData(imageData, 0, 0);
   }
+
+  loadImage(file: File): void {
+    const reader = new FileReader();
+    const ctx = this.ctx;
+    const canvas = this.canvas;
+    console.log(file);
+    // tslint:disable-next-line:only-arrow-functions typedef
+    reader.onload = function(evt){
+      // tslint:disable-next-line:triple-equals
+      const img = new Image();
+      // tslint:disable-next-line:only-arrow-functions
+      img.onload = function(){
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+      };
+      if (typeof evt.target.result === 'string') {
+        img.src = evt.target.result;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
 }
