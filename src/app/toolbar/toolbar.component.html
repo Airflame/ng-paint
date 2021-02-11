@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <span class="mr-2">ng-paint</span>
-  <button mat-button [matMenuTriggerFor]="menu" class="ml-2">File</button>
-  <mat-menu #menu="matMenu">
+  <button mat-button [matMenuTriggerFor]="menuFile" class="ml-2">File</button>
+  <mat-menu #menuFile="matMenu">
     <button mat-menu-item (click)="clearCanvas()">New</button>
     <button
       mat-menu-item
@@ -9,6 +9,10 @@
     >
       Open
     </button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuFilters" class="ml-2">Filters</button>
+  <mat-menu #menuFilters="matMenu">
+    <button mat-menu-item (click)="openBrightnessDialog()">Brightness</button>
   </mat-menu>
 </mat-toolbar>
 <input

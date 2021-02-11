@@ -80,6 +80,7 @@ export class PaintService {
     const canvas = this.canvas;
     const img = new Image();
     const size = this.size;
+    const service = this;
     reader.onload = function (evt) {
       img.onload = function () {
         canvas.width = img.width;
@@ -88,6 +89,12 @@ export class PaintService {
         ctx.lineCap = 'round';
         ctx.lineWidth = size;
         ctx.drawImage(img, 0, 0);
+        service.imageData = ctx.getImageData(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
       };
       if (typeof evt.target.result === 'string') {
         img.src = evt.target.result;

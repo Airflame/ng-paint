@@ -8,14 +8,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog'
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrightnessDialogComponent } from './dialogs/brightness-dialog/brightness-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PaintComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    BrightnessDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSliderModule,
     MatToolbarModule,
     MatMenuModule,
+    MatDialogModule,
     NgbModule
   ],
   providers: [],
