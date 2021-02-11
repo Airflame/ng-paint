@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>New image</h1>
+<div mat-dialog-content>
+  <div>
+    Width:
+    <input matInput class="ml-auto" type="number" [(ngModel)]="width" value="800" />
+  </div>
+  <div>
+    Height:
+    <input matInput class="ml-auto" type="number" [(ngModel)]="height" value="600" />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" (click)="create()">Create</button>
+</div>

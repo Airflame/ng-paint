@@ -14,7 +14,7 @@ export class PaintComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.elRef);
-    this.paintSvc.initialize(this.elRef.nativeElement, 1700, 750);
+    this.paintSvc.initialize(this.elRef.nativeElement, 800, 600);
     this.startPainting();
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrightnessDialogComponent } from '../dialogs/brightness-dialog/brightness-dialog.component';
+import { NewDialogComponent } from '../dialogs/new-dialog/new-dialog.component';
 import { PaintService } from '../paint.service';
 
 @Component({
@@ -26,6 +27,12 @@ export class ToolbarComponent implements OnInit {
 
   openBrightnessDialog() {
     const dialogRef = this.dialog.open(BrightnessDialogComponent, {
+      width: '500px',
+    });
+  }
+
+  openNewDialog() {
+    const dialogRef = this.dialog.open(NewDialogComponent, {
       width: '500px',
     });
   }

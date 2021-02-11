@@ -15,11 +15,16 @@ export class PaintService {
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
     this.canvas = mountPoint.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
+    this.reset(width, height);
+  }
+
+  reset(width: number, height: number): void {
     this.canvas.width = width;
     this.canvas.height = height;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.size;
+    this.clear();
   }
 
   paint({ clientX, clientY }): void {

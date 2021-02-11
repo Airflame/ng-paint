@@ -18,8 +18,4 @@ export class BrightnessDialogComponent implements OnInit {
   public setBrightness(event): void {
     this.paintSvc.setBrightness(event.value);
   }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }

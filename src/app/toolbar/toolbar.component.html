@@ -2,7 +2,7 @@
   <span class="mr-2">ng-paint</span>
   <button mat-button [matMenuTriggerFor]="menuFile" class="ml-2">File</button>
   <mat-menu #menuFile="matMenu">
-    <button mat-menu-item (click)="clearCanvas()">New</button>
+    <button mat-menu-item (click)="openNewDialog()">New</button>
     <button
       mat-menu-item
       onclick="document.getElementById('file').click();"
