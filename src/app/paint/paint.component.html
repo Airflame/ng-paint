@@ -1,15 +1,3 @@
-<div>
-  <button mat-raised-button (click)="clearCanvas()">Clear</button>
-  <button mat-raised-button onclick="document.getElementById('file').click();">
-    Choose File
-  </button>
-  <input
-    type="file"
-    id="file"
-    style="display: none"
-    (change)="handleFileInput($event.target)"
-  />
-</div>
 <div><canvas #mount></canvas></div>
 <div>
   <mat-slider

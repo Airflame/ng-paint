@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { PaintService } from './paint.service';
+import { PaintService } from '../paint.service';
 import { fromEvent, merge } from 'rxjs';
 import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 
@@ -9,13 +9,12 @@ import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
   styleUrls: ['./paint.component.css'],
 })
 export class PaintComponent implements OnInit {
-  private file: File;
 
   constructor(private paintSvc: PaintService, private elRef: ElementRef) {}
 
   ngOnInit(): void {
     console.log(this.elRef);
-    this.paintSvc.initialize(this.elRef.nativeElement, 1700, 850);
+    this.paintSvc.initialize(this.elRef.nativeElement, 1700, 750);
     this.startPainting();
   }
 
@@ -43,21 +42,12 @@ export class PaintComponent implements OnInit {
     });
   }
 
-  public clearCanvas(): void {
-    this.paintSvc.clear();
-  }
-
   public setBrushSize(event): void {
     this.paintSvc.setSize(event.value);
   }
 
   public setBrightness(event): void {
     this.paintSvc.setBrightness(event.value);
-  }
-
-  handleFileInput(target: EventTarget): void {
-    this.file = (target as HTMLInputElement).files.item(0);
-    this.paintSvc.loadImage(this.file);
   }
 }
 

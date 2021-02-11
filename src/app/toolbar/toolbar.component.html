@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span class="mr-2">ng-paint</span>
+  <button mat-button [matMenuTriggerFor]="menu" class="ml-2">File</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="clearCanvas()">New</button>
+    <button
+      mat-menu-item
+      onclick="document.getElementById('file').click();"
+    >
+      Open
+    </button>
+  </mat-menu>
+</mat-toolbar>
+<input
+  type="file"
+  id="file"
+  style="display: none"
+  (change)="handleFileInput($event.target)"
+/>

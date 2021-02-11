@@ -6,17 +6,25 @@ import { PaintComponent } from './paint/paint.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PaintComponent
+    PaintComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatSliderModule
+    MatSliderModule,
+    MatToolbarModule,
+    MatMenuModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
