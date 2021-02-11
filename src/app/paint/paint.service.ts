@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaintService {
   private canvas: HTMLCanvasElement = null;
   private ctx: CanvasRenderingContext2D;
   private prevX = Infinity;
   private prevY = Infinity;
-  private colorHue = 1;
+  private size: number = 30;
+  private colorHue: number = 1;
   private imageData: ImageData;
 
-  initialize(mountPoint: HTMLElement): void {
+  initialize(mountPoint: HTMLElement, width: number, height: number): void {
     this.canvas = mountPoint.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = 1700;
-    this.canvas.height = 850;
+    this.canvas.width = width;
+    this.canvas.height = height;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = 30;
+    this.ctx.lineWidth = this.size;
   }
 
   paint({ clientX, clientY }): void {
@@ -30,13 +31,23 @@ export class PaintService {
     this.prevX = clientX;
     this.prevY = clientY;
     this.colorHue++;
-    this.imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    this.imageData = this.ctx.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
   }
 
   clear(): void {
     this.breakLine();
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+    this.imageData = this.ctx.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
   }
 
   breakLine(): void {
@@ -56,7 +67,7 @@ export class PaintService {
     );
     const data = imageData.data;
     for (let p = 0; p < data.length; p += 4) {
-      data[p]     = brightness + data[p];
+      data[p] = brightness + data[p];
       data[p + 1] = brightness + data[p + 1];
       data[p + 2] = brightness + data[p + 2];
     }
@@ -67,15 +78,15 @@ export class PaintService {
     const reader = new FileReader();
     const ctx = this.ctx;
     const canvas = this.canvas;
-    console.log(file);
-    // tslint:disable-next-line:only-arrow-functions typedef
-    reader.onload = function(evt){
-      // tslint:disable-next-line:triple-equals
-      const img = new Image();
-      // tslint:disable-next-line:only-arrow-functions
-      img.onload = function(){
-        canvas.height = img.height;
+    const img = new Image();
+    const size = this.size;
+    reader.onload = function (evt) {
+      img.onload = function () {
         canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = size;
         ctx.drawImage(img, 0, 0);
       };
       if (typeof evt.target.result === 'string') {

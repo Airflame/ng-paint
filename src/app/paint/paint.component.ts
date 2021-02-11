@@ -1,21 +1,21 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {PaintService} from './paint.service';
-import {fromEvent, merge} from 'rxjs';
-import {mergeMap, takeLast, takeUntil} from 'rxjs/operators';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { PaintService } from './paint.service';
+import { fromEvent, merge } from 'rxjs';
+import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-paint',
   templateUrl: './paint.component.html',
-  styleUrls: ['./paint.component.css']
+  styleUrls: ['./paint.component.css'],
 })
 export class PaintComponent implements OnInit {
   private file: File;
 
-  constructor(private paintSvc: PaintService, private elRef: ElementRef) { }
+  constructor(private paintSvc: PaintService, private elRef: ElementRef) {}
 
   ngOnInit(): void {
     console.log(this.elRef);
-    this.paintSvc.initialize(this.elRef.nativeElement);
+    this.paintSvc.initialize(this.elRef.nativeElement, 1700, 850);
     this.startPainting();
   }
 
@@ -28,16 +28,13 @@ export class PaintComponent implements OnInit {
     const leave$ = fromEvent<MouseEvent>(canvas, 'mouseleave');
     const break$ = merge(up$, leave$);
     const paints$ = down$.pipe(
-      mergeMap(down => move$.pipe(takeUntil(break$)))
+      mergeMap((down) => move$.pipe(takeUntil(break$)))
     );
-    // tslint:disable-next-line:no-console
     down$.subscribe(console.info);
 
-    const offset = getOffset(canvas);
-
     paints$.subscribe((event) => {
-      const clientX = event.clientX - offset.left;
-      const clientY = event.clientY - offset.top;
+      const clientX = event.clientX - getOffset(canvas).left;
+      const clientY = event.clientY - getOffset(canvas).top;
       this.paintSvc.paint({ clientX, clientY });
     });
 
@@ -64,12 +61,11 @@ export class PaintComponent implements OnInit {
   }
 }
 
-// tslint:disable-next-line:typedef
 function getOffset(el: HTMLElement) {
   const rect = el.getBoundingClientRect();
 
   return {
     top: rect.top + document.body.scrollTop,
-    left: rect.left + document.body.scrollLeft
+    left: rect.left + document.body.scrollLeft,
   };
 }

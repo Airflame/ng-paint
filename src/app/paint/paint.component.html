@@ -1,14 +1,33 @@
+<div>
+  <button mat-raised-button (click)="clearCanvas()">Clear</button>
+  <button mat-raised-button onclick="document.getElementById('file').click();">
+    Choose File
+  </button>
+  <input
+    type="file"
+    id="file"
+    style="display: none"
+    (change)="handleFileInput($event.target)"
+  />
+</div>
 <div><canvas #mount></canvas></div>
 <div>
-  <mat-slider class="size-slider" thumbLabel
-              min="1" max="600" step="1" value="30" (change)="setBrushSize($event)"></mat-slider>
-  <mat-slider class="size-slider" thumbLabel
-              min="-100" max="100" step="1" value="0" (input)="setBrightness($event)"></mat-slider>
-  <button mat-raised-button (click)="clearCanvas()">Clear</button>
-  <div class="form-group">
-    <label for="file">Choose File</label>
-    <input type="file"
-           id="file"
-           (change)="handleFileInput($event.target)">>
-  </div>
+  <mat-slider
+    class="size-slider"
+    thumbLabel
+    min="1"
+    max="600"
+    step="1"
+    value="30"
+    (change)="setBrushSize($event)"
+  ></mat-slider>
+  <mat-slider
+    class="size-slider"
+    thumbLabel
+    min="-100"
+    max="100"
+    step="1"
+    value="0"
+    (input)="setBrightness($event)"
+  ></mat-slider>
 </div>
