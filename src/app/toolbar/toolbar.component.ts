@@ -36,4 +36,8 @@ export class ToolbarComponent implements OnInit {
       width: '500px',
     });
   }
+
+  applyBlur(): void {
+    this.paintSvc.applyBlur();
+  }
 }
