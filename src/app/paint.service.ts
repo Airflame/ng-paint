@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { BlurFilter } from './effects/blur-filter';
+import { BrightnessEffect } from './effects/brightness-effect';
+import { Effect } from './effects/effect';
 
 @Injectable({
   providedIn: 'root',
@@ -79,32 +82,13 @@ export class PaintService {
     this.ctx.putImageData(imageData, 0, 0);
   }
 
-  applyBlur(): void {
-    //TODO rework this complete mess
+  applyEffect(effect: Effect): void {
     const imageData = new ImageData(
       new Uint8ClampedArray(this.imageData.data),
       this.imageData.width,
       this.imageData.height
     );
-    const newImageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    const newData = newImageData.data;
-    const width = this.imageData.width;
-    for (let p = 0; p < data.length; p += 4) {
-      let newPixel = data[p] + data[p+4] + data[p-4] + data[p-width*4] + data[p-width*4-4] + data[p-width*4+4] + data[p+width*4] + data[p+width*4-4] + data[p+width*4+4];
-      newData[p] = newPixel / 9;
-      p = p + 1;
-      newPixel = data[p] + data[p+4] + data[p-4] + data[p-width*4] + data[p-width*4-4] + data[p-width*4+4] + data[p+width*4] + data[p+width*4-4] + data[p+width*4+4];
-      newData[p] = newPixel / 9;
-      p = p + 1;
-      newPixel = data[p] + data[p+4] + data[p-4] + data[p-width*4] + data[p-width*4-4] + data[p-width*4+4] + data[p+width*4] + data[p+width*4-4] + data[p+width*4+4];
-      newData[p] = newPixel / 9;
-      p = p - 2;
-    }
+    const newImageData = effect.applyEffect(imageData);
     this.ctx.putImageData(newImageData, 0, 0);
     this.imageData = this.ctx.getImageData(
       0,

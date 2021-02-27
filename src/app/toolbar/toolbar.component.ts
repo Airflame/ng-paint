@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrightnessDialogComponent } from '../dialogs/brightness-dialog/brightness-dialog.component';
 import { NewDialogComponent } from '../dialogs/new-dialog/new-dialog.component';
+import { BlurFilter } from '../effects/blur-filter';
+import { EdgeFilter } from '../effects/edge-filter';
 import { PaintService } from '../paint.service';
 
 @Component({
@@ -38,6 +40,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   applyBlur(): void {
-    this.paintSvc.applyBlur();
+    this.paintSvc.applyEffect(new BlurFilter);
+  }
+
+  applyEdgeDetection(): void {
+    this.paintSvc.applyEffect(new EdgeFilter);
   }
 }
