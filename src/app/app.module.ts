@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrightnessDialogComponent } from './dialogs/brightness-dialog/brightness-dialog.component';
 import { NewDialogComponent } from './dialogs/new-dialog/new-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     PaintComponent,
     ToolbarComponent,
     BrightnessDialogComponent,
-    NewDialogComponent
+    NewDialogComponent,
+    ColorDialogComponent
   ],
   imports: [
     BrowserModule,

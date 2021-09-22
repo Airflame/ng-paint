@@ -82,6 +82,45 @@ export class PaintService {
     this.ctx.putImageData(imageData, 0, 0);
   }
 
+  setRed(red: number): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      data[p] = red + data[p];
+    }
+    this.ctx.putImageData(imageData, 0, 0);
+  }
+
+  setGreen(green: number): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      data[p + 1] = green + data[p + 1];
+    }
+    this.ctx.putImageData(imageData, 0, 0);
+  }
+
+  setBlue(blue: number): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      data[p + 2] = blue + data[p + 2];
+    }
+    this.ctx.putImageData(imageData, 0, 0);
+  }
+
   applyEffect(effect: Effect): void {
     const imageData = new ImageData(
       new Uint8ClampedArray(this.imageData.data),
