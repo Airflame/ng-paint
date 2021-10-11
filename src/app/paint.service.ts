@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BlurFilter } from './effects/blur-filter';
-import { BrightnessEffect } from './effects/brightness-effect';
 import { Effect } from './effects/effect';
 
 @Injectable({
@@ -82,7 +80,7 @@ export class PaintService {
     this.ctx.putImageData(imageData, 0, 0);
   }
 
-  setRed(red: number): void {
+  setColor(red: number, green: number, blue: number): void {
     const imageData = new ImageData(
       new Uint8ClampedArray(this.imageData.data),
       this.imageData.width,
@@ -91,31 +89,7 @@ export class PaintService {
     const data = imageData.data;
     for (let p = 0; p < data.length; p += 4) {
       data[p] = red + data[p];
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-  }
-
-  setGreen(green: number): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
       data[p + 1] = green + data[p + 1];
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-  }
-
-  setBlue(blue: number): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
       data[p + 2] = blue + data[p + 2];
     }
     this.ctx.putImageData(imageData, 0, 0);
@@ -129,6 +103,15 @@ export class PaintService {
     );
     const newImageData = effect.applyEffect(imageData);
     this.ctx.putImageData(newImageData, 0, 0);
+    this.imageData = this.ctx.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
+  }
+
+  confirmEffect(): void {
     this.imageData = this.ctx.getImageData(
       0,
       0,

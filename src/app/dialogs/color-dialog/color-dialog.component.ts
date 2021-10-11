@@ -8,6 +8,9 @@ import { PaintService } from 'src/app/paint.service';
   styleUrls: ['./color-dialog.component.css']
 })
 export class ColorDialogComponent implements OnInit {
+  private red: number = 0;
+  private green: number = 0;
+  private blue: number = 0;
 
   constructor(
     public dialogRef: MatDialogRef<ColorDialogComponent>,
@@ -18,15 +21,22 @@ export class ColorDialogComponent implements OnInit {
   }
 
   public setRed(event): void {
-    this.paintSvc.setRed(event.value);
+    this.red = event.value;
+    this.paintSvc.setColor(this.red, this.green, this.blue);
   }
 
   public setGreen(event): void {
-    this.paintSvc.setGreen(event.value);
+    this.green = event.value;
+    this.paintSvc.setColor(this.red, this.green, this.blue);
   }
 
   public setBlue(event): void {
-    this.paintSvc.setBlue(event.value);
+    this.blue = event.value;
+    this.paintSvc.setColor(this.red, this.green, this.blue);
   }
 
+  public confirm(): void {
+    this.paintSvc.confirmEffect();
+    this.dialogRef.close();
+  }
 }
