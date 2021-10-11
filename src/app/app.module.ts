@@ -16,6 +16,7 @@ import { BrightnessDialogComponent } from './dialogs/brightness-dialog/brightnes
 import { NewDialogComponent } from './dialogs/new-dialog/new-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.compon
     MatMenuModule,
     MatDialogModule,
     MatFormFieldModule,
-    NgbModule
+    NgbModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
