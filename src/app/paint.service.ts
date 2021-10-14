@@ -120,6 +120,22 @@ export class PaintService {
     );
   }
 
+  applyNegative(): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      data[p] = 255 - data[p];
+      data[p + 1] = 255 - data[p + 1];
+      data[p + 2] = 255 - data[p + 2];
+    }
+    this.ctx.putImageData(imageData, 0, 0);
+    this.confirmEffect();
+  }
+
   loadImage(file: File): void {
     const reader = new FileReader();
     const ctx = this.ctx;

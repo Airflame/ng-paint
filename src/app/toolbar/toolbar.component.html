@@ -10,12 +10,17 @@
       Open
     </button>
   </mat-menu>
-  <button mat-button [matMenuTriggerFor]="menuFilters" class="ml-2">Filters</button>
-  <mat-menu #menuFilters="matMenu">
+  <button mat-button [matMenuTriggerFor]="menuEffects" class="ml-2">Effects</button>
+  <mat-menu #menuEffects="matMenu">
     <button mat-menu-item (click)="openBrightnessDialog()">Brightness</button>
     <button mat-menu-item (click)="openColorDialog()">Color</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuFilters" class="ml-2">Filters</button>
+  <mat-menu #menuFilters="matMenu">
     <button mat-menu-item (click)="applyBlur()">Blur</button>
+    <button mat-menu-item (click)="applySharpen()">Sharpen</button>
     <button mat-menu-item (click)="applyEdgeDetection()">Edge detection</button>
+    <button mat-menu-item (click)="applyNegative()">Negative</button>
   </mat-menu>
 </mat-toolbar>
 <input

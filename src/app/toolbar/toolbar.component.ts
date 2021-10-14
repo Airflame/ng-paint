@@ -4,6 +4,7 @@ import { BrightnessDialogComponent } from '../dialogs/brightness-dialog/brightne
 import { ColorDialogComponent } from '../dialogs/color-dialog/color-dialog.component';
 import { NewDialogComponent } from '../dialogs/new-dialog/new-dialog.component';
 import { BlurFilter } from '../effects/blur-filter';
+import { SharpenFilter } from '../effects/sharpen-filter';
 import { EdgeFilter } from '../effects/edge-filter';
 import { PaintService } from '../paint.service';
 
@@ -50,7 +51,15 @@ export class ToolbarComponent implements OnInit {
     this.paintSvc.applyEffect(new BlurFilter);
   }
 
+  applySharpen(): void {
+    this.paintSvc.applyEffect(new SharpenFilter);
+  }
+
   applyEdgeDetection(): void {
     this.paintSvc.applyEffect(new EdgeFilter);
+  }
+
+  applyNegative(): void {
+    this.paintSvc.applyNegative();
   }
 }
