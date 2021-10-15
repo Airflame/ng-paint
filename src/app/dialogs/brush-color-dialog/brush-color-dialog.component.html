@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Brush color</h1>
+<div mat-dialog-content>
+  Rainbow rate:
+  <mat-slider
+    thumbLabel
+    min="0.5"
+    max="10"
+    step="0.5"
+    class="mt-4"
+    [(ngModel)]="rainbowRate"
+  ></mat-slider>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" (click)="this.confirm();">Ok</button>
+</div>

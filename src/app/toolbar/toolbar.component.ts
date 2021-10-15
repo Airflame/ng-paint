@@ -7,6 +7,7 @@ import { BlurFilter } from '../effects/blur-filter';
 import { SharpenFilter } from '../effects/sharpen-filter';
 import { EdgeFilter } from '../effects/edge-filter';
 import { PaintService } from '../paint.service';
+import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -27,6 +28,12 @@ export class ToolbarComponent implements OnInit {
   handleFileInput(target: EventTarget): void {
     this.file = (target as HTMLInputElement).files.item(0);
     this.paintSvc.loadImage(this.file);
+  }
+
+  openBrushColorDialog() {
+    const dialogRef = this.dialog.open(BrushColorDialogComponent, {
+      width: '500px',
+    })
   }
 
   openBrightnessDialog() {

@@ -11,6 +11,7 @@ export class PaintService {
   private prevY = Infinity;
   private size: number = 30;
   private colorHue: number = 1;
+  private rainbowRate: number = 1;
   private imageData: ImageData;
 
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
@@ -36,7 +37,7 @@ export class PaintService {
     this.ctx.stroke();
     this.prevX = clientX;
     this.prevY = clientY;
-    this.colorHue++;
+    this.colorHue = this.colorHue + this.rainbowRate;
     this.imageData = this.ctx.getImageData(
       0,
       0,
@@ -134,6 +135,10 @@ export class PaintService {
     }
     this.ctx.putImageData(imageData, 0, 0);
     this.confirmEffect();
+  }
+
+  setRainbowRate(rate: number): void {
+    this.rainbowRate = rate;
   }
 
   loadImage(file: File): void {

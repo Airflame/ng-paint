@@ -17,6 +17,7 @@ import { NewDialogComponent } from './dialogs/new-dialog/new-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.component';
 import { MatInputModule } from '@angular/material/input';
+import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-color-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatInputModule } from '@angular/material/input';
     ToolbarComponent,
     BrightnessDialogComponent,
     NewDialogComponent,
-    ColorDialogComponent
+    ColorDialogComponent,
+    BrushColorDialogComponent
   ],
   imports: [
     BrowserModule,
