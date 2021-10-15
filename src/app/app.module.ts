@@ -14,10 +14,12 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrightnessDialogComponent } from './dialogs/brightness-dialog/brightness-dialog.component';
 import { NewDialogComponent } from './dialogs/new-dialog/new-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-color-dialog.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 @NgModule({
   declarations: [
@@ -40,9 +42,14 @@ import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-co
     MatDialogModule,
     MatFormFieldModule,
     NgbModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule,
+    NgxMatColorPickerModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

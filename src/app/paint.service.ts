@@ -1,3 +1,4 @@
+import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { Effect } from './effects/effect';
 
@@ -5,13 +6,15 @@ import { Effect } from './effects/effect';
   providedIn: 'root',
 })
 export class PaintService {
+  public rainbowEnabled: boolean = true;
+  public rainbowRate: number = 1;
   private canvas: HTMLCanvasElement = null;
   private ctx: CanvasRenderingContext2D;
   private prevX = Infinity;
   private prevY = Infinity;
   private size: number = 30;
   private colorHue: number = 1;
-  private rainbowRate: number = 1;
+  private brushColor: Color;
   private imageData: ImageData;
 
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
@@ -30,14 +33,18 @@ export class PaintService {
   }
 
   paint({ clientX, clientY }): void {
-    this.ctx.strokeStyle = `hsl(${this.colorHue}, 100%, 60%)`;
+    if (this.rainbowEnabled) {
+      this.ctx.strokeStyle = `hsl(${this.colorHue}, 100%, 60%)`;
+      this.colorHue = this.colorHue + this.rainbowRate;
+    } else {
+      this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
+    }
     this.ctx.beginPath();
     this.ctx.moveTo(this.prevX, this.prevY);
     this.ctx.lineTo(clientX, clientY);
     this.ctx.stroke();
     this.prevX = clientX;
     this.prevY = clientY;
-    this.colorHue = this.colorHue + this.rainbowRate;
     this.imageData = this.ctx.getImageData(
       0,
       0,
@@ -60,6 +67,11 @@ export class PaintService {
   breakLine(): void {
     this.prevX = Infinity;
     this.prevY = Infinity;
+  }
+
+  setBrushColor(color: Color) {
+    if (color != null)
+      this.brushColor = color;
   }
 
   setSize(size: number): void {
@@ -135,10 +147,6 @@ export class PaintService {
     }
     this.ctx.putImageData(imageData, 0, 0);
     this.confirmEffect();
-  }
-
-  setRainbowRate(rate: number): void {
-    this.rainbowRate = rate;
   }
 
   loadImage(file: File): void {

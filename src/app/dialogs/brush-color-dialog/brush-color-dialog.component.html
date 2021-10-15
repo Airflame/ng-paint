@@ -1,14 +1,23 @@
 <h1 mat-dialog-title>Brush color</h1>
 <div mat-dialog-content>
-  Rainbow rate:
-  <mat-slider
-    thumbLabel
-    min="0.5"
-    max="10"
-    step="0.5"
-    class="mt-4"
-    [(ngModel)]="rainbowRate"
-  ></mat-slider>
+  <mat-form-field>
+    <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="this.paintSvc.rainbowEnabled">
+    <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+    <ngx-mat-color-picker #picker></ngx-mat-color-picker>
+  </mat-form-field>
+  <mat-checkbox [(ngModel)]="this.paintSvc.rainbowEnabled">Rainbow brush</mat-checkbox>
+  <div>
+    Rainbow rate:
+    <mat-slider
+      thumbLabel
+      min="0.5"
+      max="10"
+      step="0.5"
+      class="mt-4"
+      [disabled]="!this.paintSvc.rainbowEnabled"
+      [(ngModel)]="this.paintSvc.rainbowRate"
+    ></mat-slider>
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-button class="ml-auto" (click)="this.confirm();">Ok</button>

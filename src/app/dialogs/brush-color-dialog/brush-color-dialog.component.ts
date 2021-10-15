@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PaintService } from 'src/app/paint.service';
 
@@ -8,20 +9,18 @@ import { PaintService } from 'src/app/paint.service';
   styleUrls: ['./brush-color-dialog.component.css']
 })
 export class BrushColorDialogComponent implements OnInit {
-  public rainbowRate: number;
+  colorCtr: AbstractControl = new FormControl(null, [Validators.required]);
 
   constructor(
     public dialogRef: MatDialogRef<BrushColorDialogComponent>,
-    private paintSvc: PaintService
-  ) {
-    this.rainbowRate = 1;
-  }
+    public paintSvc: PaintService
+  ) {}
 
   ngOnInit(): void {
   }
 
   public confirm() {
-    this.paintSvc.setRainbowRate(this.rainbowRate);
+    this.paintSvc.setBrushColor(this.colorCtr.value);
     this.dialogRef.close();
   }
 }
