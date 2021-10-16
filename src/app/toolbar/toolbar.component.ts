@@ -8,6 +8,8 @@ import { SharpenFilter } from '../effects/sharpen-filter';
 import { EdgeFilter } from '../effects/edge-filter';
 import { PaintService } from '../paint.service';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
+import { GrayscaleEffect } from '../effects/grayscale-effect';
+import { NegativeEffect } from '../effects/negative-effect';
 
 @Component({
   selector: 'app-toolbar',
@@ -54,6 +56,10 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  applyGrayscale(): void {
+    this.paintSvc.applyEffect(new GrayscaleEffect);
+  }
+
   applyBlur(): void {
     this.paintSvc.applyEffect(new BlurFilter);
   }
@@ -67,6 +73,6 @@ export class ToolbarComponent implements OnInit {
   }
 
   applyNegative(): void {
-    this.paintSvc.applyNegative();
+    this.paintSvc.applyEffect(new NegativeEffect);
   }
 }

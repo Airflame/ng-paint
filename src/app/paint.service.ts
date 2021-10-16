@@ -116,12 +116,7 @@ export class PaintService {
     );
     const newImageData = effect.applyEffect(imageData);
     this.ctx.putImageData(newImageData, 0, 0);
-    this.imageData = this.ctx.getImageData(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    );
+    this.confirmEffect();
   }
 
   confirmEffect(): void {
@@ -131,22 +126,6 @@ export class PaintService {
       this.canvas.width,
       this.canvas.height
     );
-  }
-
-  applyNegative(): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
-      data[p] = 255 - data[p];
-      data[p + 1] = 255 - data[p + 1];
-      data[p + 2] = 255 - data[p + 2];
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-    this.confirmEffect();
   }
 
   loadImage(file: File): void {
