@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Thresholding</h1>
+<div mat-dialog-content>
+  <div>
+    <mat-form-field>
+      <input matInput [ngxMatColorPicker]="pickerDark" [formControl]="colorDark">
+      <ngx-mat-color-toggle matSuffix [for]="pickerDark"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #pickerDark></ngx-mat-color-picker>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput [ngxMatColorPicker]="pickerLight" [formControl]="colorLight">
+      <ngx-mat-color-toggle matSuffix [for]="pickerLight"></ngx-mat-color-toggle>
+      <ngx-mat-color-picker #pickerLight></ngx-mat-color-picker>
+    </mat-form-field>
+  </div>
+  <mat-slider
+    thumbLabel
+    min="0"
+    max="255"
+    step="1"
+    class="mt-4"
+    [(ngModel)]="value"
+    (input)="applyThresholding($event)"
+  ></mat-slider>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" (click)="confirm();">Ok</button>
+</div>

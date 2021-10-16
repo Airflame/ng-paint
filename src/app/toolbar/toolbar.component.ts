@@ -10,6 +10,7 @@ import { PaintService } from '../paint.service';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 import { GrayscaleEffect } from '../effects/grayscale-effect';
 import { NegativeEffect } from '../effects/negative-effect';
+import { ThresholdingDialogComponent } from '../dialogs/thresholding-dialog/thresholding-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -40,7 +41,7 @@ export class ToolbarComponent implements OnInit {
 
   openBrightnessDialog() {
     const dialogRef = this.dialog.open(BrightnessDialogComponent, {
-      width: '500px',
+      width: '400px',
     });
   }
 
@@ -50,9 +51,15 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  openThresholdingDialog() {
+    const dialogRef = this.dialog.open(ThresholdingDialogComponent, {
+      width: '400px',
+    });
+  }
+
   openNewDialog() {
     const dialogRef = this.dialog.open(NewDialogComponent, {
-      width: '500px',
+      width: '400px',
     });
   }
 

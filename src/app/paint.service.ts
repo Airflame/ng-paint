@@ -108,6 +108,30 @@ export class PaintService {
     this.ctx.putImageData(imageData, 0, 0);
   }
 
+  applyThresholding(threshold: number, colorDark: Color, colorLight: Color): void {
+    const imageData = new ImageData(
+      new Uint8ClampedArray(this.imageData.data),
+      this.imageData.width,
+      this.imageData.height
+    );
+    const data = imageData.data;
+    for (let p = 0; p < data.length; p += 4) {
+      var val = (data[p] + data[p + 1] + data[p + 2]) / 3;
+      var r = colorDark.r;
+      var g = colorDark.g;
+      var b = colorDark.b;
+      if (val < threshold) {
+        r = colorLight.r;
+        g = colorLight.g;
+        b = colorLight.b;
+      }
+      data[p] = r;
+      data[p + 1] = g;
+      data[p + 2] = b;
+    }
+    this.ctx.putImageData(imageData, 0, 0);
+  }
+
   applyEffect(effect: Effect): void {
     const imageData = new ImageData(
       new Uint8ClampedArray(this.imageData.data),

@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-color-dialog.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { ThresholdingDialogComponent } from './dialogs/thresholding-dialog/thresholding-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     BrightnessDialogComponent,
     NewDialogComponent,
     ColorDialogComponent,
-    BrushColorDialogComponent
+    BrushColorDialogComponent,
+    ThresholdingDialogComponent
   ],
   imports: [
     BrowserModule,
