@@ -12,8 +12,8 @@ export class PaintService {
   private ctx: CanvasRenderingContext2D;
   private prevX = Infinity;
   private prevY = Infinity;
-  private size: number = 30;
   private colorHue: number = 1;
+  private brushSize: number = 30;
   private brushColor: Color;
   private imageData: ImageData;
 
@@ -28,7 +28,7 @@ export class PaintService {
     this.canvas.height = height;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = this.size;
+    this.ctx.lineWidth = 30;
     this.clear();
   }
 
@@ -55,7 +55,8 @@ export class PaintService {
 
   clear(): void {
     this.breakLine();
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = "white";
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.imageData = this.ctx.getImageData(
       0,
       0,
@@ -74,8 +75,12 @@ export class PaintService {
       this.brushColor = color;
   }
 
-  setSize(size: number): void {
+  setBrushSize(size: number): void {
     this.ctx.lineWidth = size;
+  }
+
+  getBrushSize(): number {
+    return this.ctx.lineWidth;
   }
 
   setBrightness(brightness: number): void {
@@ -152,12 +157,16 @@ export class PaintService {
     );
   }
 
+  discardEffect(): void {
+    this.ctx.putImageData(this.imageData, 0, 0);
+  }
+
   loadImage(file: File): void {
     const reader = new FileReader();
     const ctx = this.ctx;
     const canvas = this.canvas;
     const img = new Image();
-    const size = this.size;
+    const size = this.brushSize;
     const service = this;
     reader.onload = function (evt) {
       img.onload = function () {

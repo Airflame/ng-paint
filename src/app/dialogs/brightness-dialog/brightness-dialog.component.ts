@@ -13,7 +13,9 @@ export class BrightnessDialogComponent implements OnInit {
     private paintSvc: PaintService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
+  }
 
   public setBrightness(event): void {
     this.paintSvc.setBrightness(event.value);

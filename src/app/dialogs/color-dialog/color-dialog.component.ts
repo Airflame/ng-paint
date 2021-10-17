@@ -18,6 +18,7 @@ export class ColorDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
   }
 
   public setRed(event): void {

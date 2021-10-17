@@ -12,6 +12,7 @@
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuBrush" class="ml-2">Brush</button>
   <mat-menu #menuBrush="matMenu">
+    <button mat-menu-item (click)="openBrushSizeDialog()">Size</button>
     <button mat-menu-item (click)="openBrushColorDialog()">Color</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuEffects" class="ml-2">Effects</button>

@@ -29,6 +29,7 @@ export class ThresholdingDialogComponent implements OnInit {
     this.colorLight.valueChanges.subscribe(value => {
       this.paintSvc.applyThresholding(this.value, this.colorDark.value, this.colorLight.value);
     })
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
   }
 
   applyThresholding(event): void {

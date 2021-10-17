@@ -11,6 +11,7 @@ import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-c
 import { GrayscaleEffect } from '../effects/grayscale-effect';
 import { NegativeEffect } from '../effects/negative-effect';
 import { ThresholdingDialogComponent } from '../dialogs/thresholding-dialog/thresholding-dialog.component';
+import { BrushSizeDialogComponent } from '../dialogs/brush-size-dialog/brush-size-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -33,9 +34,15 @@ export class ToolbarComponent implements OnInit {
     this.paintSvc.loadImage(this.file);
   }
 
+  openBrushSizeDialog() {
+    const dialogRef = this.dialog.open(BrushSizeDialogComponent, {
+      width: '300px',
+    })
+  }
+
   openBrushColorDialog() {
     const dialogRef = this.dialog.open(BrushColorDialogComponent, {
-      width: '500px',
+      width: '300px',
     })
   }
 

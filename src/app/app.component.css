@@ -3,3 +3,6 @@ html, body {
   height: 100%;
   /*overflow: hidden;*/
 }
+app-paint {
+  background-color: rgb(250, 250, 250);
+}

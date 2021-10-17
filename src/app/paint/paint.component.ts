@@ -41,10 +41,6 @@ export class PaintComponent implements OnInit {
       this.paintSvc.breakLine();
     });
   }
-
-  public setBrushSize(event): void {
-    this.paintSvc.setSize(event.value);
-  }
 }
 
 function getOffset(el: HTMLElement) {
