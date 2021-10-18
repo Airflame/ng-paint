@@ -22,6 +22,7 @@ import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-co
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { ThresholdingDialogComponent } from './dialogs/thresholding-dialog/thresholding-dialog.component';
 import { BrushSizeDialogComponent } from './dialogs/brush-size-dialog/brush-size-dialog.component';
+import { ResizeImageDialogComponent } from './dialogs/resize-image-dialog/resize-image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BrushSizeDialogComponent } from './dialogs/brush-size-dialog/brush-size
     ColorDialogComponent,
     BrushColorDialogComponent,
     ThresholdingDialogComponent,
-    BrushSizeDialogComponent
+    BrushSizeDialogComponent,
+    ResizeImageDialogComponent
   ],
   imports: [
     BrowserModule,

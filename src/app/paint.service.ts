@@ -28,7 +28,7 @@ export class PaintService {
     this.canvas.height = height;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = 30;
+    this.ctx.lineWidth = this.brushSize;
     this.clear();
   }
 
@@ -188,5 +188,39 @@ export class PaintService {
       }
     };
     reader.readAsDataURL(file);
+  }
+
+  resizeImage(width: number, height: number): void {
+    const scaleX = width / this.canvas.width;
+    const scaleY = height / this.canvas.height;
+    var newCanvas: HTMLCanvasElement = document.createElement('canvas');
+    var scaleCanvas: HTMLCanvasElement = document.createElement('canvas');
+
+    newCanvas.width = this.canvas.width;
+    newCanvas.height = this.canvas.height;
+    newCanvas.getContext("2d").putImageData(this.imageData, 0, 0);
+    scaleCanvas.width = width;
+    scaleCanvas.height = height;
+    scaleCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
+    var scaleCtx = scaleCanvas.getContext("2d");
+
+    this.reset(width, height);
+    this.clear();
+    scaleCtx.scale(scaleX, scaleY);
+    scaleCtx.drawImage(newCanvas, 0, 0);
+    this.ctx.putImageData(scaleCtx.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height), 0, 0);
+    this.confirmEffect();
+  }
+
+  getCanvasWidth(): number {
+    return this.canvas.width;
+  }
+
+  getCanvasHeight(): number {
+    return this.canvas.height;
   }
 }

@@ -12,6 +12,7 @@ import { GrayscaleEffect } from '../effects/grayscale-effect';
 import { NegativeEffect } from '../effects/negative-effect';
 import { ThresholdingDialogComponent } from '../dialogs/thresholding-dialog/thresholding-dialog.component';
 import { BrushSizeDialogComponent } from '../dialogs/brush-size-dialog/brush-size-dialog.component';
+import { ResizeImageDialogComponent } from '../dialogs/resize-image-dialog/resize-image-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -42,6 +43,12 @@ export class ToolbarComponent implements OnInit {
 
   openBrushColorDialog() {
     const dialogRef = this.dialog.open(BrushColorDialogComponent, {
+      width: '300px',
+    })
+  }
+
+  openResizeImageDialog() {
+    const dialogRef = this.dialog.open(ResizeImageDialogComponent, {
       width: '300px',
     })
   }
