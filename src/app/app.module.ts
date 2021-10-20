@@ -24,6 +24,8 @@ import { ThresholdingDialogComponent } from './dialogs/thresholding-dialog/thres
 import { BrushSizeDialogComponent } from './dialogs/brush-size-dialog/brush-size-dialog.component';
 import { ResizeImageDialogComponent } from './dialogs/resize-image-dialog/resize-image-dialog.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatCheckboxModule,
     NgxMatColorPickerModule,
     ReactiveFormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTabsModule,
+    MatButtonToggleModule,
   ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }

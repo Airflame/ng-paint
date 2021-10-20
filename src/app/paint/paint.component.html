@@ -1,4 +1,17 @@
 <mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-  <mat-drawer-content><canvas #mount></canvas></mat-drawer-content>
+  <mat-drawer mode="side" opened>
+    <mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" value="Brush" vertical>
+      <mat-button-toggle value="Brush"><i class="ti ti-brush"></i></mat-button-toggle>
+      <mat-button-toggle><i class="ti ti-paint-bucket"></i></mat-button-toggle>
+      <mat-button-toggle><i class="ti ti-layout-sidebar-none"></i></mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-tab-group>
+      <mat-tab label="First"></mat-tab>
+      <mat-tab label="Second"></mat-tab>
+      <mat-tab label="Third"></mat-tab>
+    </mat-tab-group>
+    <canvas #mount></canvas>
+  </mat-drawer-content>
 </mat-drawer-container>
