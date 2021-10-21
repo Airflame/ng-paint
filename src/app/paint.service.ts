@@ -16,7 +16,7 @@ export class PaintService {
   private startX = Infinity;
   private startY = Infinity;
   private colorHue: number = 1;
-  private brushSize: number = 20;
+  private brushSize: number = 15;
   private brushColor: Color = new Color(255, 0, 0);
   private operation: Operation = Operation.BRUSH;
   private imageData: ImageData;
@@ -178,7 +178,7 @@ export class PaintService {
     this.ctx.putImageData(imageData, 0, 0);
   }
 
-  applyThresholding(threshold: number, colorDark: Color, colorLight: Color): void {
+  applyThresholding(threshold: number, colorDark: Color, colorLight: Color, keepDark: boolean, keepLight: boolean): void {
     const imageData = new ImageData(
       new Uint8ClampedArray(this.imageData.data),
       this.imageData.width,
@@ -187,13 +187,21 @@ export class PaintService {
     const data = imageData.data;
     for (let p = 0; p < data.length; p += 4) {
       var val = (data[p] + data[p + 1] + data[p + 2]) / 3;
-      var r = colorDark.r;
-      var g = colorDark.g;
-      var b = colorDark.b;
+      var r = data[p];
+      var g = data[p + 1];
+      var b = data[p + 2];
       if (val < threshold) {
-        r = colorLight.r;
-        g = colorLight.g;
-        b = colorLight.b;
+        if (!keepDark) {
+          r = colorDark.r;
+          g = colorDark.g;
+          b = colorDark.b;
+        }
+      } else {
+        if (!keepLight) {
+          r = colorLight.r;
+          g = colorLight.g;
+          b = colorLight.b;
+        }
       }
       data[p] = r;
       data[p + 1] = g;

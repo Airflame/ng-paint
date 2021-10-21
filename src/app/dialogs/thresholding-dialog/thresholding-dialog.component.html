@@ -1,15 +1,17 @@
 <h1 mat-dialog-title>Thresholding</h1>
 <div mat-dialog-content>
   <div>
+    <mat-checkbox [(ngModel)]="keepDark" (change)="onCheckboxChange()">Keep dark part of original image</mat-checkbox>
     <mat-form-field>
-      <input matInput [ngxMatColorPicker]="pickerDark" [formControl]="colorDark">
+      <input matInput [ngxMatColorPicker]="pickerDark" [formControl]="colorDark" [disabled]="keepDark">
       <ngx-mat-color-toggle matSuffix [for]="pickerDark"></ngx-mat-color-toggle>
       <ngx-mat-color-picker #pickerDark></ngx-mat-color-picker>
     </mat-form-field>
   </div>
   <div>
+    <mat-checkbox [(ngModel)]="keepLight" (change)="onCheckboxChange()">Keep light part of original image</mat-checkbox>
     <mat-form-field>
-      <input matInput [ngxMatColorPicker]="pickerLight" [formControl]="colorLight">
+      <input matInput [ngxMatColorPicker]="pickerLight" [formControl]="colorLight" [disabled]="keepLight">
       <ngx-mat-color-toggle matSuffix [for]="pickerLight"></ngx-mat-color-toggle>
       <ngx-mat-color-picker #pickerLight></ngx-mat-color-picker>
     </mat-form-field>
@@ -21,7 +23,7 @@
     step="1"
     class="mt-4"
     [(ngModel)]="value"
-    (input)="applyThresholding($event)"
+    (input)="onSliderMove($event)"
   ></mat-slider>
 </div>
 <div mat-dialog-actions>
