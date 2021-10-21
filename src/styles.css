@@ -3,3 +3,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*:not(input, textarea),
+*:not(input, textarea):after,
+*:not(input, textarea):before {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    user-select: none;
+}

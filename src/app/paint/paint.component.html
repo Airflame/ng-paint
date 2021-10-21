@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="switchTab()">
   <mat-tab label="First"></mat-tab>
   <mat-tab label="Second"></mat-tab>
   <mat-tab label="Third"></mat-tab>

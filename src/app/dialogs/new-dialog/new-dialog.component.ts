@@ -20,6 +20,7 @@ export class NewDialogComponent implements OnInit {
 
   create(): void {
     this.paintSvc.reset(this.width, this.height);
+    this.paintSvc.clear();
     this.dialogRef.close();
   }
 

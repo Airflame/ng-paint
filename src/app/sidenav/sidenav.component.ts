@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { runInThisContext } from 'vm';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 import { PaintService } from '../paint.service';
 import { Operation } from './operation';

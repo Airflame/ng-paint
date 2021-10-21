@@ -9,6 +9,7 @@ import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
   styleUrls: ['./paint.component.css'],
 })
 export class PaintComponent implements OnInit {
+  public selectedTabIndex: number;
 
   constructor(private paintSvc: PaintService, private elRef: ElementRef) {}
 
@@ -16,6 +17,11 @@ export class PaintComponent implements OnInit {
     console.log(this.elRef);
     this.paintSvc.initialize(this.elRef.nativeElement, 800, 600);
     this.startPainting();
+  }
+
+  switchTab(): void {
+    this.paintSvc.switchTab(this.selectedTabIndex);
+    console.log(this.selectedTabIndex);
   }
 
   private startPainting(): void {

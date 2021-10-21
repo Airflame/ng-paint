@@ -19,12 +19,35 @@ export class PaintService {
   private brushSize: number = 15;
   private brushColor: Color = new Color(255, 0, 0);
   private operation: Operation = Operation.BRUSH;
+  private currentTabIndex: number = 0;
   private imageData: ImageData;
+  private imageDataTabs: ImageData[];
 
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
     this.canvas = mountPoint.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.reset(width, height);
+    this.clear();
+    this.imageDataTabs = [];
+    for(let i = 0; i < 3; i++) {
+      this.imageDataTabs.push(new ImageData(
+        new Uint8ClampedArray(this.imageData.data),
+        this.imageData.width,
+        this.imageData.height
+      ));
+    }
+  }
+
+  switchTab(tabIndex: number) {
+    this.imageDataTabs[this.currentTabIndex] = this.imageData;
+    this.imageData = this.imageDataTabs[tabIndex];
+    this.canvas.width = this.imageData.width;
+    this.canvas.height = this.imageData.height;
+    this.ctx.putImageData(this.imageData, 0, 0);
+    this.currentTabIndex = tabIndex;
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = this.brushSize;
   }
 
   reset(width: number, height: number): void {
@@ -33,7 +56,6 @@ export class PaintService {
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
-    this.clear();
   }
 
   setStartPosition({ clientX, clientY }): void {
