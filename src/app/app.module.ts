@@ -26,6 +26,7 @@ import { ResizeImageDialogComponent } from './dialogs/resize-image-dialog/resize
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     BrushColorDialogComponent,
     ThresholdingDialogComponent,
     BrushSizeDialogComponent,
-    ResizeImageDialogComponent
+    ResizeImageDialogComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,

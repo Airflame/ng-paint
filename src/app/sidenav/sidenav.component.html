@@ -1,0 +1,7 @@
+<mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" value="Brush" vertical>
+  <button mat-mini-fab [style.background-color]="paintSvc.getBrushColor()" (click)="openBrushColorDialog()" class="color-button">
+  </button>
+  <mat-button-toggle value="Brush"><i class="ti ti-brush"></i></mat-button-toggle>
+  <mat-button-toggle><i class="ti ti-paint-bucket"></i></mat-button-toggle>
+  <mat-button-toggle><i class="ti ti-layout-sidebar-none"></i></mat-button-toggle>
+</mat-button-toggle-group>

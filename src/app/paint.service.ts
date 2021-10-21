@@ -75,6 +75,10 @@ export class PaintService {
       this.brushColor = color;
   }
 
+  getBrushColor() {
+    return this.brushColor;
+  }
+
   setBrushSize(size: number): void {
     this.ctx.lineWidth = size;
   }

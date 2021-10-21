@@ -6,3 +6,6 @@ html, body {
 app-paint {
   background-color: rgb(250, 250, 250);
 }
+mat-drawer-container {
+  height:100%;
+}
