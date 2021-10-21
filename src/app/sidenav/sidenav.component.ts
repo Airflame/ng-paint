@@ -31,6 +31,9 @@ export class SidenavComponent implements OnInit {
       case "Line":
         this.paintSvc.setOperation(Operation.LINE);
         break;
+      case "Rectangle":
+        this.paintSvc.setOperation(Operation.RECTANGLE);
+        break;
       case "Bucket":
         this.paintSvc.setOperation(Operation.BUCKET);
         break;

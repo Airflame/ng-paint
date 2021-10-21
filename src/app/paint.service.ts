@@ -16,7 +16,7 @@ export class PaintService {
   private startX = Infinity;
   private startY = Infinity;
   private colorHue: number = 1;
-  private brushSize: number = 30;
+  private brushSize: number = 20;
   private brushColor: Color = new Color(255, 0, 0);
   private operation: Operation = Operation.BRUSH;
   private imageData: ImageData;
@@ -49,6 +49,9 @@ export class PaintService {
       case Operation.LINE:
         this.useLine({ clientX, clientY });
         break;
+      case Operation.RECTANGLE:
+        this.useRectangle({ clientX, clientY });
+        break;
     }
   }
 
@@ -58,7 +61,7 @@ export class PaintService {
         this.prevX = Infinity;
         this.prevY = Infinity;
         break;
-      case Operation.LINE:
+      default:
         this.imageData = this.ctx.getImageData(
           0,
           0,
@@ -98,6 +101,18 @@ export class PaintService {
     this.ctx.stroke();
   }
 
+  private useRectangle({ clientX, clientY }): void {
+    this.discardEffect();
+    this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
+    this.ctx.beginPath();
+    this.ctx.rect(
+      this.startX > clientX ? clientX : this.startX,
+      this.startY > clientY ? clientY : this.startY,
+      Math.abs(clientX - this.startX),
+      Math.abs(clientY - this.startY));
+    this.ctx.stroke();
+  }
+
   clear(): void {
     this.prevX = Infinity;
     this.prevY = Infinity;
@@ -125,11 +140,12 @@ export class PaintService {
   }
 
   setBrushSize(size: number): void {
-    this.ctx.lineWidth = size;
+    this.brushSize = size;
+    this.ctx.lineWidth = this.brushSize;
   }
 
   getBrushSize(): number {
-    return this.ctx.lineWidth;
+    return this.brushSize;
   }
 
   setBrightness(brightness: number): void {
