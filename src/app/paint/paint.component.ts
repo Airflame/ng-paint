@@ -29,16 +29,19 @@ export class PaintComponent implements OnInit {
     const paints$ = down$.pipe(
       mergeMap((down) => move$.pipe(takeUntil(break$)))
     );
-    down$.subscribe(console.info);
 
+    down$.subscribe((event) => {
+      const clientX = event.clientX - getOffset(canvas).left;
+      const clientY = event.clientY - getOffset(canvas).top;
+      this.paintSvc.setStartPosition({ clientX, clientY });
+    });
     paints$.subscribe((event) => {
       const clientX = event.clientX - getOffset(canvas).left;
       const clientY = event.clientY - getOffset(canvas).top;
-      this.paintSvc.paint({ clientX, clientY });
+      this.paintSvc.onPaint({ clientX, clientY });
     });
-
     break$.subscribe((event) => {
-      this.paintSvc.breakLine();
+      this.paintSvc.onBreak();
     });
   }
 }

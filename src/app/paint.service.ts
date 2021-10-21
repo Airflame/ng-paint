@@ -1,20 +1,24 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { Effect } from './effects/effect';
+import { Operation } from './sidenav/operation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaintService {
-  public rainbowEnabled: boolean = true;
+  public rainbowEnabled: boolean = false;
   public rainbowRate: number = 1;
   private canvas: HTMLCanvasElement = null;
   private ctx: CanvasRenderingContext2D;
   private prevX = Infinity;
   private prevY = Infinity;
+  private startX = Infinity;
+  private startY = Infinity;
   private colorHue: number = 1;
   private brushSize: number = 30;
-  private brushColor: Color;
+  private brushColor: Color = new Color(255, 0, 0);
+  private operation: Operation = Operation.BRUSH;
   private imageData: ImageData;
 
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
@@ -32,7 +36,39 @@ export class PaintService {
     this.clear();
   }
 
-  paint({ clientX, clientY }): void {
+  setStartPosition({ clientX, clientY }): void {
+    this.startX = clientX;
+    this.startY = clientY;
+  }
+
+  onPaint({ clientX, clientY }): void {
+    switch(this.operation) {
+      case Operation.BRUSH:
+        this.useBrush({ clientX, clientY });
+        break;
+      case Operation.LINE:
+        this.useLine({ clientX, clientY });
+        break;
+    }
+  }
+
+  onBreak(): void {
+    switch(this.operation) {
+      case Operation.BRUSH:
+        this.prevX = Infinity;
+        this.prevY = Infinity;
+        break;
+      case Operation.LINE:
+        this.imageData = this.ctx.getImageData(
+          0,
+          0,
+          this.canvas.width,
+          this.canvas.height
+        );
+    }
+  }
+
+  private useBrush({ clientX, clientY }): void {
     if (this.rainbowEnabled) {
       this.ctx.strokeStyle = `hsl(${this.colorHue}, 100%, 60%)`;
       this.colorHue = this.colorHue + this.rainbowRate;
@@ -53,8 +89,18 @@ export class PaintService {
     );
   }
 
+  private useLine({ clientX, clientY }): void {
+    this.discardEffect();
+    this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.startX, this.startY);
+    this.ctx.lineTo(clientX, clientY);
+    this.ctx.stroke();
+  }
+
   clear(): void {
-    this.breakLine();
+    this.prevX = Infinity;
+    this.prevY = Infinity;
     this.ctx.fillStyle = "white";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.imageData = this.ctx.getImageData(
@@ -65,9 +111,8 @@ export class PaintService {
     );
   }
 
-  breakLine(): void {
-    this.prevX = Infinity;
-    this.prevY = Infinity;
+  setOperation(operation: Operation): void {
+    this.operation = operation;
   }
 
   setBrushColor(color: Color) {

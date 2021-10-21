@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { runInThisContext } from 'vm';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 import { PaintService } from '../paint.service';
+import { Operation } from './operation';
 
 @Component({
   selector: 'app-sidenav',
@@ -19,5 +21,22 @@ export class SidenavComponent implements OnInit {
     const dialogRef = this.dialog.open(BrushColorDialogComponent, {
       width: '300px',
     })
+  }
+
+  setSelectedOperation(operation: string) {
+    switch (operation) {
+      case "Brush":
+        this.paintSvc.setOperation(Operation.BRUSH);
+        break;
+      case "Line":
+        this.paintSvc.setOperation(Operation.LINE);
+        break;
+      case "Bucket":
+        this.paintSvc.setOperation(Operation.BUCKET);
+        break;
+      case "Selection":
+        this.paintSvc.setOperation(Operation.SELECTION);
+        break;
+    }
   }
 }
