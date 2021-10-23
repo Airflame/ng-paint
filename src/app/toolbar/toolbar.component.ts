@@ -22,7 +22,7 @@ import { ResizeImageDialogComponent } from '../dialogs/resize-image-dialog/resiz
 export class ToolbarComponent implements OnInit {
   private file: File;
 
-  constructor(public dialog: MatDialog, private paintSvc: PaintService) {}
+  constructor(public dialog: MatDialog, public paintSvc: PaintService) {}
 
   ngOnInit(): void {}
 
@@ -33,6 +33,10 @@ export class ToolbarComponent implements OnInit {
   handleFileInput(target: EventTarget): void {
     this.file = (target as HTMLInputElement).files.item(0);
     this.paintSvc.loadImage(this.file);
+  }
+
+  closeTab() {
+    this.paintSvc.closeTab();
   }
 
   openBrushSizeDialog() {

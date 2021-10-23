@@ -9,6 +9,7 @@
     >
       Open
     </button>
+    <button mat-menu-item (click)="closeTab()" *ngIf="this.paintSvc.tabs.length > 1">Close tab</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuBrush" class="ml-2">Brush</button>
   <mat-menu #menuBrush="matMenu">

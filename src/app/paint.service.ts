@@ -1,6 +1,7 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { Effect } from './effects/effect';
+import { Tab } from './paint/tab';
 import { Operation } from './sidenav/operation';
 
 @Injectable({
@@ -21,30 +22,63 @@ export class PaintService {
   private operation: Operation = Operation.BRUSH;
   private currentTabIndex: number = 0;
   private imageData: ImageData;
-  private imageDataTabs: ImageData[];
+  public tabs: Tab[];
+  public selectedTabIndex: number = 0;
 
   initialize(mountPoint: HTMLElement, width: number, height: number): void {
     this.canvas = mountPoint.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.reset(width, height);
     this.clear();
-    this.imageDataTabs = [];
+    this.tabs = [];
     for(let i = 0; i < 3; i++) {
-      this.imageDataTabs.push(new ImageData(
+      var image = new ImageData(
         new Uint8ClampedArray(this.imageData.data),
         this.imageData.width,
         this.imageData.height
-      ));
+      );
+      var tab = new Tab(image, "Image " + (i+1));
+      this.tabs.push(tab);
     }
   }
 
-  switchTab(tabIndex: number) {
-    this.imageDataTabs[this.currentTabIndex] = this.imageData;
-    this.imageData = this.imageDataTabs[tabIndex];
+  createTab(name: string) {
+    var image = new ImageData(
+      new Uint8ClampedArray(this.tabs[0].getImage().data),
+      this.tabs[0].getImage().width,
+      this.tabs[0].getImage().height
+    );
+    var tab = new Tab(image, name);
+    this.tabs.push(tab);
+    this.switchTab(this.tabs.length - 1);
+  }
+
+  switchTab(tabIndex: number = this.selectedTabIndex): void {
+    this.selectedTabIndex = tabIndex;
+    this.tabs[this.currentTabIndex].setImage(this.imageData);
+    this.imageData = this.tabs[tabIndex].getImage();
     this.canvas.width = this.imageData.width;
     this.canvas.height = this.imageData.height;
     this.ctx.putImageData(this.imageData, 0, 0);
     this.currentTabIndex = tabIndex;
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = this.brushSize;
+  }
+
+  setTabName(name: string): void {
+    this.tabs[this.selectedTabIndex].setName(name);
+  }
+
+  closeTab(): void {
+    this.tabs.splice(this.selectedTabIndex, 1);
+    if (this.selectedTabIndex > 0)
+      this.selectedTabIndex = this.selectedTabIndex -= 1;
+    this.imageData = this.tabs[this.selectedTabIndex].getImage();
+    this.canvas.width = this.imageData.width;
+    this.canvas.height = this.imageData.height;
+    this.ctx.putImageData(this.imageData, 0, 0);
+    this.currentTabIndex = this.selectedTabIndex;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;

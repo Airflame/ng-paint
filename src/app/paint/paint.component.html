@@ -1,6 +1,4 @@
-<mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="switchTab()">
-  <mat-tab label="First"></mat-tab>
-  <mat-tab label="Second"></mat-tab>
-  <mat-tab label="Third"></mat-tab>
+<mat-tab-group [(selectedIndex)]="this.paintSvc.selectedTabIndex" (selectedIndexChange)="switchTab()">
+  <mat-tab [label]="tab.getName()" *ngFor="let tab of this.paintSvc.tabs"></mat-tab>
 </mat-tab-group>
 <canvas #mount></canvas>
