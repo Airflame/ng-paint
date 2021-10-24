@@ -87,8 +87,6 @@ export class PaintService {
   reset(width: number, height: number): void {
     this.canvas.width = width;
     this.canvas.height = height;
-    this.ctx.lineJoin = 'round';
-    this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
   }
 
@@ -107,6 +105,9 @@ export class PaintService {
         break;
       case Operation.RECTANGLE:
         this.useRectangle({ clientX, clientY });
+        break;
+      case Operation.ELLIPSE:
+        this.useEllipse({ clientX, clientY });
         break;
     }
   }
@@ -134,6 +135,8 @@ export class PaintService {
     } else {
       this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     }
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
     this.ctx.beginPath();
     this.ctx.moveTo(this.prevX, this.prevY);
     this.ctx.lineTo(clientX, clientY);
@@ -150,6 +153,8 @@ export class PaintService {
 
   private useLine({ clientX, clientY }): void {
     this.discardEffect();
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
     this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     this.ctx.beginPath();
     this.ctx.moveTo(this.startX, this.startY);
@@ -159,6 +164,8 @@ export class PaintService {
 
   private useRectangle({ clientX, clientY }): void {
     this.discardEffect();
+    this.ctx.lineJoin = 'miter';
+    this.ctx.lineCap = 'butt';
     this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     this.ctx.beginPath();
     this.ctx.rect(
@@ -166,6 +173,24 @@ export class PaintService {
       this.startY > clientY ? clientY : this.startY,
       Math.abs(clientX - this.startX),
       Math.abs(clientY - this.startY));
+    this.ctx.stroke();
+  }
+
+  private useEllipse({ clientX, clientY }): void {
+    this.discardEffect();
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
+    this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
+    this.ctx.beginPath();
+    this.ctx.ellipse(
+      (this.startX + clientX) / 2,
+      (this.startY + clientY) / 2,
+      this.startX > clientX ? (this.startX - clientX) / 2 : (clientX - this.startX) / 2,
+      this.startY > clientY ? (this.startY - clientY) / 2 : (clientY - this.startY) / 2,
+      2*Math.PI,
+      0,
+      2*Math.PI
+      );
     this.ctx.stroke();
   }
 

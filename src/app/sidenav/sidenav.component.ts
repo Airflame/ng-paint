@@ -33,8 +33,8 @@ export class SidenavComponent implements OnInit {
       case "Rectangle":
         this.paintSvc.setOperation(Operation.RECTANGLE);
         break;
-      case "Bucket":
-        this.paintSvc.setOperation(Operation.BUCKET);
+      case "Ellipse":
+        this.paintSvc.setOperation(Operation.ELLIPSE);
         break;
       case "Selection":
         this.paintSvc.setOperation(Operation.SELECTION);
