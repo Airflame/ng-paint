@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrightnessDialogComponent } from '../dialogs/brightness-dialog/brightness-dialog.component';
-import { ColorDialogComponent } from '../dialogs/color-dialog/color-dialog.component';
+import { ColorLevelsDialogComponent } from '../dialogs/color-levels-dialog/color-levels-dialog.component';
 import { NewDialogComponent } from '../dialogs/new-dialog/new-dialog.component';
 import { BlurFilter } from '../effects/blur-filter';
 import { SharpenFilter } from '../effects/sharpen-filter';
@@ -63,8 +63,8 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  openColorDialog() {
-    const dialogRef = this.dialog.open(ColorDialogComponent, {
+  openColorLevelsDialog() {
+    const dialogRef = this.dialog.open(ColorLevelsDialogComponent, {
       width: '500px',
     });
   }

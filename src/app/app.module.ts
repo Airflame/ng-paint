@@ -15,7 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrightnessDialogComponent } from './dialogs/brightness-dialog/brightness-dialog.component';
 import { NewDialogComponent } from './dialogs/new-dialog/new-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ColorDialogComponent } from './dialogs/color-dialog/color-dialog.component';
+import { ColorLevelsDialogComponent } from './dialogs/color-levels-dialog/color-levels-dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrushColorDialogComponent } from './dialogs/brush-color-dialog/brush-color-dialog.component';
@@ -35,7 +35,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ToolbarComponent,
     BrightnessDialogComponent,
     NewDialogComponent,
-    ColorDialogComponent,
+    ColorLevelsDialogComponent,
     BrushColorDialogComponent,
     ThresholdingDialogComponent,
     BrushSizeDialogComponent,
