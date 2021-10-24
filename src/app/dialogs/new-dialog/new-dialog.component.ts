@@ -1,4 +1,6 @@
+import { Color } from '@angular-material-components/color-picker';
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PaintService } from 'src/app/paint.service';
 
@@ -12,13 +14,16 @@ export class NewDialogComponent implements OnInit {
   public width: number = 800;
   public height: number = 600;
   public newTab: boolean = false;
+  backgroundColor: AbstractControl = new FormControl(null, [Validators.required]);
 
   constructor(
     public dialogRef: MatDialogRef<NewDialogComponent>,
     private paintSvc: PaintService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.backgroundColor.setValue(new Color(255, 255, 255));
+  }
 
   create(): void {
     if (this.newTab) {
@@ -27,7 +32,7 @@ export class NewDialogComponent implements OnInit {
       this.paintSvc.setTabName(this.name);
     }
     this.paintSvc.reset(this.width, this.height);
-    this.paintSvc.clear();
+    this.paintSvc.clear(this.backgroundColor.value);
     this.dialogRef.close();
   }
 

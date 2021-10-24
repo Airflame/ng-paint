@@ -169,10 +169,10 @@ export class PaintService {
     this.ctx.stroke();
   }
 
-  clear(): void {
+  clear(color = new Color(255, 255, 255)): void {
     this.prevX = Infinity;
     this.prevY = Infinity;
-    this.ctx.fillStyle = "white";
+    this.ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.imageData = this.ctx.getImageData(
       0,
