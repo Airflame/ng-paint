@@ -1,7 +1,7 @@
 import { Effect } from "./effect";
 
 export class NegativeEffect implements Effect {
-  applyEffect(imageData: ImageData, args?: number[]): ImageData {
+  applyEffect(imageData: ImageData): ImageData {
     const data = imageData.data;
     for (let p = 0; p < data.length; p += 4) {
       data[p] = 255 - data[p];

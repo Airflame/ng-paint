@@ -83,21 +83,26 @@ export class ToolbarComponent implements OnInit {
 
   applyGrayscale(): void {
     this.paintSvc.applyEffect(new GrayscaleEffect);
+    this.paintSvc.confirmEffect();
   }
 
   applyBlur(): void {
     this.paintSvc.applyEffect(new BlurFilter);
+    this.paintSvc.confirmEffect();
   }
 
   applySharpen(): void {
     this.paintSvc.applyEffect(new SharpenFilter);
+    this.paintSvc.confirmEffect();
   }
 
   applyEdgeDetection(): void {
     this.paintSvc.applyEffect(new EdgeFilter);
+    this.paintSvc.confirmEffect();
   }
 
   applyNegative(): void {
     this.paintSvc.applyEffect(new NegativeEffect);
+    this.paintSvc.confirmEffect();
   }
 }

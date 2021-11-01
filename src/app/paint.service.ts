@@ -79,8 +79,6 @@ export class PaintService {
     this.canvas.height = this.imageData.height;
     this.ctx.putImageData(this.imageData, 0, 0);
     this.currentTabIndex = this.selectedTabIndex;
-    this.ctx.lineJoin = 'round';
-    this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
   }
 
@@ -229,77 +227,9 @@ export class PaintService {
     return this.brushSize;
   }
 
-  setBrightness(brightness: number): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
-      data[p] = brightness + data[p];
-      data[p + 1] = brightness + data[p + 1];
-      data[p + 2] = brightness + data[p + 2];
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-  }
-
-  setColor(red: number, green: number, blue: number): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
-      data[p] = red + data[p];
-      data[p + 1] = green + data[p + 1];
-      data[p + 2] = blue + data[p + 2];
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-  }
-
-  applyThresholding(threshold: number, colorDark: Color, colorLight: Color, keepDark: boolean, keepLight: boolean): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const data = imageData.data;
-    for (let p = 0; p < data.length; p += 4) {
-      var val = (data[p] + data[p + 1] + data[p + 2]) / 3;
-      var r = data[p];
-      var g = data[p + 1];
-      var b = data[p + 2];
-      if (val < threshold) {
-        if (!keepDark) {
-          r = colorDark.r;
-          g = colorDark.g;
-          b = colorDark.b;
-        }
-      } else {
-        if (!keepLight) {
-          r = colorLight.r;
-          g = colorLight.g;
-          b = colorLight.b;
-        }
-      }
-      data[p] = r;
-      data[p + 1] = g;
-      data[p + 2] = b;
-    }
-    this.ctx.putImageData(imageData, 0, 0);
-  }
-
   applyEffect(effect: Effect): void {
-    const imageData = new ImageData(
-      new Uint8ClampedArray(this.imageData.data),
-      this.imageData.width,
-      this.imageData.height
-    );
-    const newImageData = effect.applyEffect(imageData);
+    const newImageData = effect.applyEffect(this.imageData);
     this.ctx.putImageData(newImageData, 0, 0);
-    this.confirmEffect();
   }
 
   confirmEffect(): void {

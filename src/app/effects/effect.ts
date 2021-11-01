@@ -1,3 +1,3 @@
 export interface Effect {
-  applyEffect(imageData: ImageData, args?: number[]): ImageData;
+  applyEffect(imageData: ImageData): ImageData;
 }

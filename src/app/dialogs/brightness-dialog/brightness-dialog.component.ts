@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { BrightnessEffect } from 'src/app/effects/brightness-effect';
 import { PaintService } from 'src/app/paint.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { PaintService } from 'src/app/paint.service';
   styleUrls: ['./brightness-dialog.component.css'],
 })
 export class BrightnessDialogComponent implements OnInit {
+  private brightnessEffect: BrightnessEffect = new BrightnessEffect(0);
+
   constructor(
     public dialogRef: MatDialogRef<BrightnessDialogComponent>,
     private paintSvc: PaintService
@@ -18,7 +21,8 @@ export class BrightnessDialogComponent implements OnInit {
   }
 
   public setBrightness(event): void {
-    this.paintSvc.setBrightness(event.value);
+    this.brightnessEffect.setValue(event.value);
+    this.paintSvc.applyEffect(this.brightnessEffect);
   }
 
   public confirm(): void {

@@ -3,7 +3,7 @@ import { Effect } from './effect';
 export abstract class AbstractFilter implements Effect {
   protected kernel: number[];
 
-  applyEffect(imageData: ImageData, args?: number[]): ImageData {
+  applyEffect(imageData: ImageData): ImageData {
     const newImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,

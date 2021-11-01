@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ColorEffect } from 'src/app/effects/color-effect';
 import { PaintService } from 'src/app/paint.service';
 
 @Component({
@@ -8,9 +9,7 @@ import { PaintService } from 'src/app/paint.service';
   styleUrls: ['./color-levels-dialog.component.css']
 })
 export class ColorLevelsDialogComponent implements OnInit {
-  private red: number = 0;
-  private green: number = 0;
-  private blue: number = 0;
+  private colorEffect: ColorEffect = new ColorEffect(0, 0, 0);
 
   constructor(
     public dialogRef: MatDialogRef<ColorLevelsDialogComponent>,
@@ -22,18 +21,18 @@ export class ColorLevelsDialogComponent implements OnInit {
   }
 
   public setRed(event): void {
-    this.red = event.value;
-    this.paintSvc.setColor(this.red, this.green, this.blue);
+    this.colorEffect.setRed(event.value);
+    this.paintSvc.applyEffect(this.colorEffect);
   }
 
   public setGreen(event): void {
-    this.green = event.value;
-    this.paintSvc.setColor(this.red, this.green, this.blue);
+    this.colorEffect.setGreen(event.value);
+    this.paintSvc.applyEffect(this.colorEffect);
   }
 
   public setBlue(event): void {
-    this.blue = event.value;
-    this.paintSvc.setColor(this.red, this.green, this.blue);
+    this.colorEffect.setBlue(event.value);
+    this.paintSvc.applyEffect(this.colorEffect);
   }
 
   public confirm(): void {
