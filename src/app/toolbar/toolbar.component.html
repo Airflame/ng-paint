@@ -19,6 +19,8 @@
   <button mat-button [matMenuTriggerFor]="menuImage" class="ml-2">Image</button>
   <mat-menu #menuImage="matMenu">
     <button mat-menu-item (click)="openResizeImageDialog()">Resize</button>
+    <button mat-menu-item (click)="applyMirrorHorizontal()">Mirror horizontally</button>
+    <button mat-menu-item (click)="applyMirrorVertical()">Mirror vertically</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuEffects" class="ml-2">Effects</button>
   <mat-menu #menuEffects="matMenu">

@@ -13,6 +13,7 @@ import { NegativeEffect } from '../effects/negative-effect';
 import { ThresholdingDialogComponent } from '../dialogs/thresholding-dialog/thresholding-dialog.component';
 import { BrushSizeDialogComponent } from '../dialogs/brush-size-dialog/brush-size-dialog.component';
 import { ResizeImageDialogComponent } from '../dialogs/resize-image-dialog/resize-image-dialog.component';
+import { MirrorEffect } from '../effects/mirror-effect';
 
 @Component({
   selector: 'app-toolbar',
@@ -103,6 +104,16 @@ export class ToolbarComponent implements OnInit {
 
   applyNegative(): void {
     this.paintSvc.applyEffect(new NegativeEffect);
+    this.paintSvc.confirmEffect();
+  }
+
+  applyMirrorHorizontal(): void {
+    this.paintSvc.applyEffect(new MirrorEffect(true));
+    this.paintSvc.confirmEffect();
+  }
+
+  applyMirrorVertical(): void {
+    this.paintSvc.applyEffect(new MirrorEffect(false));
     this.paintSvc.confirmEffect();
   }
 }
