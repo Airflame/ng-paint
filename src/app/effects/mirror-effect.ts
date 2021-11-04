@@ -21,7 +21,7 @@ export class MirrorEffect implements Effect {
           newData[p + k] =
             data[
               this.convert2DTo1D(
-                imageData.width - this.convert1DTo2D(p + k, imageData).x,
+                imageData.width - this.convert1DTo2D(p + k, imageData).x - 1,
                 this.convert1DTo2D(p + k, imageData).y,
                 imageData
               ) * 4 + k
@@ -33,7 +33,7 @@ export class MirrorEffect implements Effect {
             data[
               this.convert2DTo1D(
                 this.convert1DTo2D(p + k, imageData).x,
-                imageData.height - this.convert1DTo2D(p + k, imageData).y,
+                imageData.height - this.convert1DTo2D(p + k, imageData).y - 1,
                 imageData
               ) * 4 + k
             ];
