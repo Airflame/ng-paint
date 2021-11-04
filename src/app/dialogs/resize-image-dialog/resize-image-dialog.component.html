@@ -1,15 +1,18 @@
 <h1 mat-dialog-title>Resize image</h1>
 <div mat-dialog-content>
+  <div style="padding-bottom: 18px;">
+    <mat-slide-toggle [(ngModel)]="keepRatio">Keep original ratio</mat-slide-toggle>
+  </div>
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Width:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="width" matInput/>
+      <input matInput class="ml-auto" type="number" [(ngModel)]="width" (ngModelChange)="widthChanged()" matInput/>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Height:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="height" matInput/>
+      <input matInput class="ml-auto" type="number" [(ngModel)]="height" (ngModelChange)="heightChanged()" matInput/>
     </mat-form-field>
   </div>
 </div>

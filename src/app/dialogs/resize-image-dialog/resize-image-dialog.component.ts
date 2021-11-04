@@ -10,6 +10,8 @@ import { PaintService } from 'src/app/paint.service';
 export class ResizeImageDialogComponent implements OnInit {
   public width: number;
   public height: number;
+  public keepRatio: boolean = true;
+  private ratio: number;
 
   constructor(
     public dialogRef: MatDialogRef<ResizeImageDialogComponent>,
@@ -19,6 +21,7 @@ export class ResizeImageDialogComponent implements OnInit {
   ngOnInit(): void {
     this.width = this.paintSvc.getCanvasWidth();
     this.height = this.paintSvc.getCanvasHeight();
+    this.ratio = this.width / this.height;
   }
 
   resize(): void {
@@ -26,4 +29,13 @@ export class ResizeImageDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  widthChanged(): void {
+    if (this.keepRatio)
+      this.height = Math.floor(this.width / this.ratio);
+  }
+
+  heightChanged(): void {
+    if (this.keepRatio)
+      this.width = Math.floor(this.height * this.ratio);
+  }
 }
