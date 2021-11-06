@@ -1,6 +1,7 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { Effect } from './effects/effect';
+import { ImageSelection } from './paint/image-selection';
 import { Tab } from './paint/tab';
 import { Operation } from './sidenav/operation';
 
@@ -22,6 +23,7 @@ export class PaintService {
   private operation: Operation = Operation.BRUSH;
   private currentTabIndex: number = 0;
   private imageData: ImageData;
+  private selection: ImageSelection;
   public tabs: Tab[];
   public selectedTabIndex: number = 0;
 
@@ -109,6 +111,10 @@ export class PaintService {
       case Operation.ELLIPSE:
         this.useEllipse({ clientX, clientY });
         break;
+      case Operation.SELECTION:
+        this.selection = new ImageSelection(0, 0, 0, 0);
+        this.useSelection({ clientX, clientY });
+        break;
     }
   }
 
@@ -116,6 +122,7 @@ export class PaintService {
     switch(this.operation) {
       case Operation.BRUSH:
       case Operation.ERASER:
+      case Operation.SELECTION:
         this.prevX = Infinity;
         this.prevY = Infinity;
         break;
@@ -141,6 +148,7 @@ export class PaintService {
     }
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = this.brushSize;
     this.ctx.beginPath();
     this.ctx.moveTo(this.prevX, this.prevY);
     this.ctx.lineTo(clientX, clientY);
@@ -159,6 +167,7 @@ export class PaintService {
     this.discardEffect();
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = this.brushSize;
     this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     this.ctx.beginPath();
     this.ctx.moveTo(this.startX, this.startY);
@@ -170,6 +179,7 @@ export class PaintService {
     this.discardEffect();
     this.ctx.lineJoin = 'miter';
     this.ctx.lineCap = 'butt';
+    this.ctx.lineWidth = this.brushSize;
     this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     this.ctx.beginPath();
     this.ctx.rect(
@@ -184,6 +194,7 @@ export class PaintService {
     this.discardEffect();
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = this.brushSize;
     this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     this.ctx.beginPath();
     this.ctx.ellipse(
@@ -195,6 +206,27 @@ export class PaintService {
       0,
       2*Math.PI
       );
+    this.ctx.stroke();
+  }
+
+  private useSelection({ clientX, clientY }): void {
+    this.discardEffect();
+    this.ctx.lineJoin = 'miter';
+    this.ctx.lineCap = 'butt';
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeStyle = `rgb(0, 0, 0)`;
+    this.ctx.fillStyle = `rgba(100, 100, 100, 0.2)`;
+    this.ctx.beginPath();
+    this.selection.x = this.startX > clientX ? clientX : this.startX;
+    this.selection.y = this.startY > clientY ? clientY : this.startY;
+    this.selection.width = Math.abs(clientX - this.startX);
+    this.selection.height = Math.abs(clientY - this.startY);
+    this.ctx.rect(
+      this.selection.x,
+      this.selection.y,
+      this.selection.width,
+      this.selection.height);
+    this.ctx.fill();
     this.ctx.stroke();
   }
 
@@ -212,6 +244,7 @@ export class PaintService {
   }
 
   setOperation(operation: Operation): void {
+    this.discardSelection();
     this.operation = operation;
   }
 
@@ -249,6 +282,11 @@ export class PaintService {
 
   discardEffect(): void {
     this.ctx.putImageData(this.imageData, 0, 0);
+  }
+
+  discardSelection(): void {
+    this.selection = null;
+    this.discardEffect();
   }
 
   loadImage(file: File): void {
@@ -304,6 +342,22 @@ export class PaintService {
       this.canvas.width,
       this.canvas.height), 0, 0);
     this.confirmEffect();
+  }
+
+  cropImage(): void {
+    this.discardEffect();
+    this.imageData = this.ctx.getImageData(
+      this.selection.x,
+      this.selection.y,
+      this.selection.width,
+      this.selection.height
+    );
+    this.reset(this.selection.width, this.selection.height);
+    this.ctx.putImageData(this.imageData, 0, 0);
+  }
+
+  isImageSelected(): boolean {
+    return this.selection != null;
   }
 
   getCanvasWidth(): number {

@@ -130,4 +130,12 @@ export class ToolbarComponent implements OnInit {
     this.paintSvc.applyEffect(new MirrorEffect(false));
     this.paintSvc.confirmEffect();
   }
+
+  cropImage(): void {
+    this.paintSvc.cropImage();
+  }
+
+  isImageSelected(): boolean {
+    return this.paintSvc.isImageSelected();
+  }
 }
