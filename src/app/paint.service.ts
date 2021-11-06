@@ -244,7 +244,8 @@ export class PaintService {
   }
 
   setOperation(operation: Operation): void {
-    this.discardSelection();
+    this.discardEffect();
+    this.selection = null;
     this.operation = operation;
   }
 
@@ -282,11 +283,6 @@ export class PaintService {
 
   discardEffect(): void {
     this.ctx.putImageData(this.imageData, 0, 0);
-  }
-
-  discardSelection(): void {
-    this.selection = null;
-    this.discardEffect();
   }
 
   loadImage(file: File): void {
@@ -354,6 +350,7 @@ export class PaintService {
     );
     this.reset(this.selection.width, this.selection.height);
     this.ctx.putImageData(this.imageData, 0, 0);
+    this.selection = null;
   }
 
   isImageSelected(): boolean {
