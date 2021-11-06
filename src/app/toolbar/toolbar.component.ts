@@ -14,6 +14,7 @@ import { ThresholdingDialogComponent } from '../dialogs/thresholding-dialog/thre
 import { BrushSizeDialogComponent } from '../dialogs/brush-size-dialog/brush-size-dialog.component';
 import { ResizeImageDialogComponent } from '../dialogs/resize-image-dialog/resize-image-dialog.component';
 import { MirrorEffect } from '../effects/mirror-effect';
+import { ContrastDialogComponent } from '../dialogs/contrast-dialog/contrast-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -62,6 +63,12 @@ export class ToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(BrightnessDialogComponent, {
       width: '400px',
     });
+  }
+
+  openContrastDialog() {
+    const dialogRef = this.dialog.open(ContrastDialogComponent, {
+      width: '400px',
+    })
   }
 
   openColorLevelsDialog() {

@@ -28,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ContrastDialogComponent } from './dialogs/contrast-dialog/contrast-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ThresholdingDialogComponent,
     BrushSizeDialogComponent,
     ResizeImageDialogComponent,
-    SidenavComponent
+    SidenavComponent,
+    ContrastDialogComponent
   ],
   imports: [
     BrowserModule,

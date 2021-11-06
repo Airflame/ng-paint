@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Set contrast</h1>
+<div mat-dialog-content>
+  <mat-slider
+    thumbLabel
+    min="0.5"
+    max="2"
+    step="0.01"
+    value="1"
+    class="mt-4"
+    (input)="setContrast($event)"
+  ></mat-slider>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" (click)="confirm();">Ok</button>
+</div>
