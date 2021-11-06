@@ -42,13 +42,13 @@ export class PaintService {
     }
   }
 
-  createTab(name: string) {
-    var image = new ImageData(
+  createTab(name: string, backgroundColor: Color): void {
+    const image = new ImageData(
       new Uint8ClampedArray(this.tabs[0].getImage().data),
       this.tabs[0].getImage().width,
       this.tabs[0].getImage().height
     );
-    var tab = new Tab(image, name);
+    const tab = new Tab(image, name, backgroundColor);
     this.tabs.push(tab);
     this.switchTab(this.tabs.length - 1);
   }
@@ -66,8 +66,9 @@ export class PaintService {
     this.ctx.lineWidth = this.brushSize;
   }
 
-  setTabName(name: string): void {
+  setTabData(name: string, backgroundColor: Color): void {
     this.tabs[this.selectedTabIndex].setName(name);
+    this.tabs[this.selectedTabIndex].setBackgroundColor(backgroundColor);
   }
 
   closeTab(): void {
@@ -96,6 +97,7 @@ export class PaintService {
   onPaint({ clientX, clientY }): void {
     switch(this.operation) {
       case Operation.BRUSH:
+      case Operation.ERASER:
         this.useBrush({ clientX, clientY });
         break;
       case Operation.LINE:
@@ -113,6 +115,7 @@ export class PaintService {
   onBreak(): void {
     switch(this.operation) {
       case Operation.BRUSH:
+      case Operation.ERASER:
         this.prevX = Infinity;
         this.prevY = Infinity;
         break;
@@ -130,6 +133,9 @@ export class PaintService {
     if (this.rainbowEnabled) {
       this.ctx.strokeStyle = `hsl(${this.colorHue}, 100%, 60%)`;
       this.colorHue = this.colorHue + this.rainbowRate;
+    } else if (this.operation == Operation.ERASER) {
+      let bgColor = this.tabs[this.selectedTabIndex].getBackgroundColor();
+      this.ctx.strokeStyle = `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`;
     } else {
       this.ctx.strokeStyle = `rgb(${this.brushColor.r}, ${this.brushColor.g}, ${this.brushColor.b})`;
     }

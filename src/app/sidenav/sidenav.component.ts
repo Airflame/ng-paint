@@ -27,6 +27,9 @@ export class SidenavComponent implements OnInit {
       case "Brush":
         this.paintSvc.setOperation(Operation.BRUSH);
         break;
+      case "Eraser":
+        this.paintSvc.setOperation(Operation.ERASER);
+        break;
       case "Line":
         this.paintSvc.setOperation(Operation.LINE);
         break;

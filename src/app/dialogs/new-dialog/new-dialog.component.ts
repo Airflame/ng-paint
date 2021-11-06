@@ -27,9 +27,9 @@ export class NewDialogComponent implements OnInit {
 
   create(): void {
     if (this.newTab) {
-      this.paintSvc.createTab(this.name);
+      this.paintSvc.createTab(this.name, this.backgroundColor.value);
     } else {
-      this.paintSvc.setTabName(this.name);
+      this.paintSvc.setTabData(this.name, this.backgroundColor.value);
     }
     this.paintSvc.reset(this.width, this.height);
     this.paintSvc.clear(this.backgroundColor.value);
