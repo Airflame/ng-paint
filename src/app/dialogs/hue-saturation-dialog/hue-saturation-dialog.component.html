@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Hue and saturation</h1>
+<div mat-dialog-content>
+  Hue:
+  <mat-slider
+    thumbLabel
+    min="-100"
+    max="100"
+    step="5"
+    value="0"
+    class="mt-4"
+    (input)="setHue($event)"
+  ></mat-slider>
+  Saturation:
+  <mat-slider
+    thumbLabel
+    min="-100"
+    max="100"
+    step="5"
+    value="0"
+    class="mt-4"
+    (input)="setSaturation($event)"
+  ></mat-slider>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" (click)="confirm();">Ok</button>
+</div>

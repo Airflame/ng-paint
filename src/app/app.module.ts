@@ -29,6 +29,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContrastDialogComponent } from './dialogs/contrast-dialog/contrast-dialog.component';
+import { HueSaturationDialogComponent } from './dialogs/hue-saturation-dialog/hue-saturation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ContrastDialogComponent } from './dialogs/contrast-dialog/contrast-dial
     BrushSizeDialogComponent,
     ResizeImageDialogComponent,
     SidenavComponent,
-    ContrastDialogComponent
+    ContrastDialogComponent,
+    HueSaturationDialogComponent
   ],
   imports: [
     BrowserModule,
