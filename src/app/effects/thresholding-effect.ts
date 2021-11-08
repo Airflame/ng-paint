@@ -1,4 +1,5 @@
 import { Color } from '@angular-material-components/color-picker';
+import { ImageSelection } from '../paint/image-selection';
 import { Effect } from './effect';
 
 export class ThresholdingEffect implements Effect {
@@ -22,7 +23,7 @@ export class ThresholdingEffect implements Effect {
     this.keepLight = keepLight;
   }
 
-  applyEffect(imageData: ImageData): ImageData {
+  applyEffect(imageData: ImageData, selection?: ImageSelection): ImageData {
     const newImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,
@@ -31,6 +32,8 @@ export class ThresholdingEffect implements Effect {
     const data = imageData.data;
     const newData = newImageData.data;
     for (let p = 0; p < data.length; p += 4) {
+      if (selection != null && !selection.isInSelection(p, imageData.width))
+        continue;
       var val = (data[p] + data[p + 1] + data[p + 2]) / 3;
       var r = data[p];
       var g = data[p + 1];

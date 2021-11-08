@@ -1,3 +1,4 @@
+import { ImageSelection } from "../paint/image-selection";
 import { Effect } from "./effect";
 declare function require(name:string);
 
@@ -11,7 +12,7 @@ export class HueSaturationEffect implements Effect {
     this.saturation = saturation;
   }
 
-  applyEffect(imageData: ImageData): ImageData {
+  applyEffect(imageData: ImageData, selection?: ImageSelection): ImageData {
     const newImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,
@@ -20,6 +21,8 @@ export class HueSaturationEffect implements Effect {
     const data = imageData.data;
     const newData = newImageData.data;
     for (let p = 0; p < data.length; p += 4) {
+      if (selection != null && !selection.isInSelection(p, imageData.width))
+        continue;
       const hsl = this.convert.rgb.hsl(data[p], data[p + 1], data[p + 2]);
       let newSaturation = hsl[1] + this.saturation;
       if (newSaturation < 0)

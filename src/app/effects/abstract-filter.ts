@@ -1,9 +1,10 @@
+import { ImageSelection } from '../paint/image-selection';
 import { Effect } from './effect';
 
 export abstract class AbstractFilter implements Effect {
   protected kernel: number[];
 
-  applyEffect(imageData: ImageData): ImageData {
+  applyEffect(imageData: ImageData, selection?: ImageSelection): ImageData {
     const newImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,
@@ -14,6 +15,8 @@ export abstract class AbstractFilter implements Effect {
     const width = imageData.width;
     const height = imageData.height;
     for (let p = 0; p < data.length; p += 1) {
+      if (selection != null && !selection.isInSelection(p, width))
+        continue;
       if ((p - 3) % 4 == 0) {
         newData[p] = 255;
         continue;

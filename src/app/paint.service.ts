@@ -211,23 +211,11 @@ export class PaintService {
 
   private useSelection({ clientX, clientY }): void {
     this.discardEffect();
-    this.ctx.lineJoin = 'miter';
-    this.ctx.lineCap = 'butt';
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = `rgb(0, 0, 0)`;
-    this.ctx.fillStyle = `rgba(100, 100, 100, 0.2)`;
-    this.ctx.beginPath();
     this.selection.x = this.startX > clientX ? clientX : this.startX;
     this.selection.y = this.startY > clientY ? clientY : this.startY;
     this.selection.width = Math.abs(clientX - this.startX);
     this.selection.height = Math.abs(clientY - this.startY);
-    this.ctx.rect(
-      this.selection.x,
-      this.selection.y,
-      this.selection.width,
-      this.selection.height);
-    this.ctx.fill();
-    this.ctx.stroke();
+    this.drawSelection();
   }
 
   clear(color = new Color(255, 255, 255)): void {
@@ -244,8 +232,8 @@ export class PaintService {
   }
 
   setOperation(operation: Operation): void {
-    this.discardEffect();
     this.selection = null;
+    this.discardEffect();
     this.operation = operation;
   }
 
@@ -268,7 +256,7 @@ export class PaintService {
   }
 
   applyEffect(effect: Effect): void {
-    const newImageData = effect.applyEffect(this.imageData);
+    const newImageData = effect.applyEffect(this.imageData, this.selection);
     this.ctx.putImageData(newImageData, 0, 0);
   }
 
@@ -279,10 +267,14 @@ export class PaintService {
       this.canvas.width,
       this.canvas.height
     );
+    if (this.selection != null)
+      this.drawSelection();
   }
 
   discardEffect(): void {
     this.ctx.putImageData(this.imageData, 0, 0);
+    if (this.selection != null)
+      this.drawSelection();
   }
 
   loadImage(file: File): void {
@@ -328,6 +320,7 @@ export class PaintService {
     scaleCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
     var scaleCtx = scaleCanvas.getContext("2d");
 
+    this.selection = null;
     this.reset(width, height);
     this.clear();
     scaleCtx.scale(scaleX, scaleY);
@@ -363,5 +356,21 @@ export class PaintService {
 
   getCanvasHeight(): number {
     return this.canvas.height;
+  }
+
+  private drawSelection(): void {
+    this.ctx.lineJoin = 'miter';
+    this.ctx.lineCap = 'butt';
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeStyle = `rgb(0, 0, 0)`;
+    this.ctx.fillStyle = `rgba(100, 100, 100, 0.2)`;
+    this.ctx.beginPath();
+    this.ctx.rect(
+      this.selection.x,
+      this.selection.y,
+      this.selection.width,
+      this.selection.height);
+    this.ctx.fill();
+    this.ctx.stroke();
   }
 }

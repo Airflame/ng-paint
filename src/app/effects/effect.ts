@@ -1,3 +1,5 @@
+import { ImageSelection } from "../paint/image-selection";
+
 export interface Effect {
-  applyEffect(imageData: ImageData): ImageData;
+  applyEffect(imageData: ImageData, selection?: ImageSelection): ImageData;
 }
