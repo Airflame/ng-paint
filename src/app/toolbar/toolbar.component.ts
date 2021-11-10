@@ -131,6 +131,10 @@ export class ToolbarComponent implements OnInit {
     this.paintSvc.confirmEffect();
   }
 
+  applyRotate(): void {
+    this.paintSvc.rotateImage();
+  }
+
   cropImage(): void {
     this.paintSvc.cropImage();
   }

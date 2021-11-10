@@ -333,6 +333,34 @@ export class PaintService {
     this.confirmEffect();
   }
 
+  rotateImage(): void {
+    var newCanvas: HTMLCanvasElement = document.createElement('canvas');
+    var rotateCanvas: HTMLCanvasElement = document.createElement('canvas');
+    const width = this.canvas.width;
+    const height = this.canvas.height;
+
+    newCanvas.width = this.canvas.width;
+    newCanvas.height = this.canvas.height;
+    newCanvas.getContext("2d").putImageData(this.imageData, 0, 0);
+    rotateCanvas.width = this.canvas.height;
+    rotateCanvas.height = this.canvas.width;
+    rotateCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
+    var rotateCtx = rotateCanvas.getContext("2d");
+
+    this.selection = null;
+    this.reset(this.canvas.height, this.canvas.width);
+    this.clear();
+    rotateCtx.translate(height / 2, width / 2);
+    rotateCtx.rotate(90 * Math.PI/180);
+    rotateCtx.drawImage(newCanvas, -width / 2, -height / 2);
+    this.ctx.putImageData(rotateCtx.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height), 0, 0);
+    this.confirmEffect();
+  }
+
   cropImage(): void {
     this.discardEffect();
     this.imageData = this.ctx.getImageData(

@@ -21,6 +21,7 @@
     <button mat-menu-item (click)="openResizeImageDialog()">Resize</button>
     <button mat-menu-item (click)="applyMirrorHorizontal()">Mirror horizontally</button>
     <button mat-menu-item (click)="applyMirrorVertical()">Mirror vertically</button>
+    <button mat-menu-item (click)="applyRotate()">Rotate</button>
     <button mat-menu-item (click)="cropImage()" [disabled]="!isImageSelected()">Crop image</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuEffects" class="ml-2">Effects</button>
