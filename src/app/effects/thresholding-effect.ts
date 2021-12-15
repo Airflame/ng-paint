@@ -34,7 +34,7 @@ export class ThresholdingEffect implements Effect {
     for (let p = 0; p < data.length; p += 4) {
       if (selection != null && !selection.isInSelection(p, imageData.width))
         continue;
-      var val = (data[p] + data[p + 1] + data[p + 2]) / 3;
+      var val = data[p]*0.2126 + data[p + 1]*0.7152 + data[p + 2]*0.0722;
       var r = data[p];
       var g = data[p + 1];
       var b = data[p + 2];
