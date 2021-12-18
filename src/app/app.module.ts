@@ -26,6 +26,7 @@ import { ResizeImageDialogComponent } from './dialogs/resize-image-dialog/resize
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContrastDialogComponent } from './dialogs/contrast-dialog/contrast-dialog.component';
@@ -65,7 +66,8 @@ import { HueSaturationDialogComponent } from './dialogs/hue-saturation-dialog/hu
     MatSidenavModule,
     MatTabsModule,
     MatButtonToggleModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTooltipModule
   ],
   providers: [
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
