@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <img src="../../assets/logo.png"/>
+  <img [src]="getLogoSrc()"/>
   <button mat-button [matMenuTriggerFor]="menuFile" class="ml-2">File</button>
   <mat-menu #menuFile="matMenu">
     <button mat-menu-item (click)="openNewDialog()">New</button>

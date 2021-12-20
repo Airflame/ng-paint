@@ -17,6 +17,7 @@ import { MirrorEffect } from '../effects/mirror-effect';
 import { ContrastDialogComponent } from '../dialogs/contrast-dialog/contrast-dialog.component';
 import { HueSaturationDialogComponent } from '../dialogs/hue-saturation-dialog/hue-saturation-dialog.component';
 import { AboutDialogComponent } from '../dialogs/about-dialog/about-dialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-toolbar',
@@ -148,5 +149,12 @@ export class ToolbarComponent implements OnInit {
 
   isImageSelected(): boolean {
     return this.paintSvc.isImageSelected();
+  }
+
+  getLogoSrc(): string {
+    if (environment.production)
+      return "assets/logo.png";
+    else
+      return "../../assets/logo.png";
   }
 }
