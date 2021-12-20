@@ -6,6 +6,7 @@
 >
   <button
     mat-mini-fab
+    matTooltip="Color" [matTooltipPosition]="'right'"
     [style.background-color]="paintSvc.getBrushColor()"
     (click)="openBrushColorDialog()"
     class="color-button"
