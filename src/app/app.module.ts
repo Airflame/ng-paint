@@ -32,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ContrastDialogComponent } from './dialogs/contrast-dialog/contrast-dialog.component';
 import { HueSaturationDialogComponent } from './dialogs/hue-saturation-dialog/hue-saturation-dialog.component';
 import { FooterComponent } from './footer/footer.component';
+import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FooterComponent } from './footer/footer.component';
     SidenavComponent,
     ContrastDialogComponent,
     HueSaturationDialogComponent,
-    FooterComponent
+    FooterComponent,
+    AboutDialogComponent
   ],
   imports: [
     BrowserModule,

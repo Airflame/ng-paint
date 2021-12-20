@@ -16,6 +16,7 @@ import { ResizeImageDialogComponent } from '../dialogs/resize-image-dialog/resiz
 import { MirrorEffect } from '../effects/mirror-effect';
 import { ContrastDialogComponent } from '../dialogs/contrast-dialog/contrast-dialog.component';
 import { HueSaturationDialogComponent } from '../dialogs/hue-saturation-dialog/hue-saturation-dialog.component';
+import { AboutDialogComponent } from '../dialogs/about-dialog/about-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -92,6 +93,12 @@ export class ToolbarComponent implements OnInit {
 
   openNewDialog() {
     const dialogRef = this.dialog.open(NewDialogComponent, {
+      width: '400px',
+    });
+  }
+
+  openHelpDialog() {
+    const dialogRef = this.dialog.open(AboutDialogComponent, {
       width: '400px',
     });
   }

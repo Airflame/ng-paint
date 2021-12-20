@@ -40,6 +40,10 @@
     <button mat-menu-item (click)="applySharpen()">Sharpen</button>
     <button mat-menu-item (click)="applyEdgeDetection()">Edge detection</button>
   </mat-menu>
+  <button mat-button [matMenuTriggerFor]="menuHelp" class="ml-2">Help</button>
+  <mat-menu #menuHelp="matMenu">
+    <button mat-menu-item (click)="openHelpDialog()">About</button>
+  </mat-menu>
 </mat-toolbar>
 <input
   type="file"
