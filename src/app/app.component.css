@@ -3,9 +3,11 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
 app-paint {
   background-color: rgb(250, 250, 250);
 }
+
 mat-drawer-container {
-  height:100%;
+  height: 90%;
 }
