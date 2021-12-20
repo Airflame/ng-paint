@@ -10,26 +10,28 @@
     (click)="openBrushColorDialog()"
     class="color-button"
   ></button>
-  <mat-button-toggle matTooltip="Brush" value="Brush" (click)="setSelectedOperation('Brush')"
+  <mat-button-toggle matTooltip="Brush" [matTooltipPosition]="'right'" value="Brush" (click)="setSelectedOperation('Brush')"
     ><i class="ti ti-brush"></i
   ></mat-button-toggle>
-  <mat-button-toggle matTooltip="Eraser" value="Eraser" (click)="setSelectedOperation('Eraser')"
+  <mat-button-toggle matTooltip="Eraser" [matTooltipPosition]="'right'" value="Eraser" (click)="setSelectedOperation('Eraser')"
     ><i class="ti ti-eraser"></i
   ></mat-button-toggle>
-  <mat-button-toggle matTooltip="Line" value="Line" (click)="setSelectedOperation('Line')"
+  <mat-button-toggle matTooltip="Line" [matTooltipPosition]="'right'" value="Line" (click)="setSelectedOperation('Line')"
     ><i class="ti ti-layout-line-solid"></i
   ></mat-button-toggle>
   <mat-button-toggle
     matTooltip="Rectangle"
+    [matTooltipPosition]="'right'"
     value="Rectangle"
     (click)="setSelectedOperation('Rectangle')"
     ><i class="ti ti-layout-width-full"></i
   ></mat-button-toggle>
-  <mat-button-toggle matTooltip="Ellipse" value="Ellipse" (click)="setSelectedOperation('Ellipse')"
+  <mat-button-toggle matTooltip="Ellipse" [matTooltipPosition]="'right'" value="Ellipse" (click)="setSelectedOperation('Ellipse')"
     ><i class="ti ti-control-record"></i
   ></mat-button-toggle>
   <mat-button-toggle
     matTooltip="Selection"
+    [matTooltipPosition]="'right'"
     value="Selection"
     (click)="setSelectedOperation('Selection')"
     ><i class="ti ti-layout-sidebar-none"></i
