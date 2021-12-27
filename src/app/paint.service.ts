@@ -1,5 +1,6 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
+import { saveAs } from 'file-saver';
 import { Effect } from './effects/effect';
 import { ImageSelection } from './paint/image-selection';
 import { Tab } from './paint/tab';
@@ -71,6 +72,12 @@ export class PaintService {
   setTabData(name: string, backgroundColor: Color): void {
     this.tabs[this.selectedTabIndex].setName(name);
     this.tabs[this.selectedTabIndex].setBackgroundColor(backgroundColor);
+  }
+
+  save(): void {
+    this.canvas.toBlob(function(blob) {
+      saveAs(blob, "image.png");
+    });
   }
 
   closeTab(): void {

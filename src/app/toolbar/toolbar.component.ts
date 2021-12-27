@@ -104,6 +104,10 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
+  openSaveDialog() {
+    this.paintSvc.save();
+  }
+
   applyGrayscale(): void {
     this.paintSvc.applyEffect(new GrayscaleEffect);
     this.paintSvc.confirmEffect();
