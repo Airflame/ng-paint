@@ -18,6 +18,7 @@ import { ContrastDialogComponent } from '../dialogs/contrast-dialog/contrast-dia
 import { HueSaturationDialogComponent } from '../dialogs/hue-saturation-dialog/hue-saturation-dialog.component';
 import { AboutDialogComponent } from '../dialogs/about-dialog/about-dialog.component';
 import { environment } from 'src/environments/environment';
+import { SobelHorizontalFilter } from '../effects/sobel-horizontal-filter';
 
 @Component({
   selector: 'app-toolbar',
@@ -125,6 +126,11 @@ export class ToolbarComponent implements OnInit {
 
   applyEdgeDetection(): void {
     this.paintSvc.applyEffect(new EdgeFilter);
+    this.paintSvc.confirmEffect();
+  }
+
+  applySobelFilter(): void {
+    this.paintSvc.applyEffect(new SobelHorizontalFilter);
     this.paintSvc.confirmEffect();
   }
 
