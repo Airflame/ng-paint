@@ -40,7 +40,8 @@
     <button mat-menu-item (click)="applyBlur()">Blur</button>
     <button mat-menu-item (click)="applySharpen()">Sharpen</button>
     <button mat-menu-item (click)="applyEdgeDetection()">Edge detection</button>
-    <button mat-menu-item (click)="applySobelFilter()">Sobel filter</button>
+    <button mat-menu-item (click)="applyHorizontalSobel()">Horizontal Sobel</button>
+    <button mat-menu-item (click)="applyVerticalSobel()">Vertical Sobel</button>
   </mat-menu>
   <button mat-button [matMenuTriggerFor]="menuHelp" class="ml-2">Help</button>
   <mat-menu #menuHelp="matMenu">

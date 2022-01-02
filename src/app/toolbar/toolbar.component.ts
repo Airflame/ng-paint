@@ -19,6 +19,7 @@ import { HueSaturationDialogComponent } from '../dialogs/hue-saturation-dialog/h
 import { AboutDialogComponent } from '../dialogs/about-dialog/about-dialog.component';
 import { environment } from 'src/environments/environment';
 import { SobelHorizontalFilter } from '../effects/sobel-horizontal-filter';
+import { SobelVerticalFilter } from '../effects/sobel-vertical-filter';
 
 @Component({
   selector: 'app-toolbar',
@@ -129,8 +130,13 @@ export class ToolbarComponent implements OnInit {
     this.paintSvc.confirmEffect();
   }
 
-  applySobelFilter(): void {
+  applyHorizontalSobel(): void {
     this.paintSvc.applyEffect(new SobelHorizontalFilter);
+    this.paintSvc.confirmEffect();
+  }
+
+  applyVerticalSobel(): void {
+    this.paintSvc.applyEffect(new SobelVerticalFilter);
     this.paintSvc.confirmEffect();
   }
 
