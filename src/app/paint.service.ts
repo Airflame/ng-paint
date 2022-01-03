@@ -369,7 +369,7 @@ export class PaintService {
   }
 
   cropImage(): void {
-    this.discardEffect();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.imageData = this.ctx.getImageData(
       this.selection.x,
       this.selection.y,

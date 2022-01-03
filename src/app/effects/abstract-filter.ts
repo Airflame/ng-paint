@@ -12,15 +12,15 @@ export abstract class AbstractFilter implements Effect {
       const grayscaleEffect: Effect = new GrayscaleEffect;
       imageData = grayscaleEffect.applyEffect(imageData, selection);
     }
-    const newImageData = new ImageData(
+    const newImageData: ImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,
       imageData.height
     );
-    const data = imageData.data;
-    const newData = newImageData.data;
-    const width = imageData.width;
-    const height = imageData.height;
+    const data: Uint8ClampedArray = imageData.data;
+    const newData: Uint8ClampedArray = newImageData.data;
+    const width: number = imageData.width;
+    const height: number = imageData.height;
     for (let p = 0; p < data.length; p += 1) {
       if (selection != null && !selection.isInSelection(p, width))
         continue;
