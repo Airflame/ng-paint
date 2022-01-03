@@ -1,10 +1,17 @@
 import { ImageSelection } from '../paint/image-selection';
 import { Effect } from './effect';
+import { GrayscaleEffect } from './grayscale-effect';
 
 export abstract class AbstractFilter implements Effect {
   protected kernel: number[];
+  protected isGrayscale: boolean = false;
+  protected offset: number = 0;
 
   applyEffect(imageData: ImageData, selection?: ImageSelection): ImageData {
+    if (this.isGrayscale) {
+      const grayscaleEffect: Effect = new GrayscaleEffect;
+      imageData = grayscaleEffect.applyEffect(imageData, selection);
+    }
     const newImageData = new ImageData(
       new Uint8ClampedArray(imageData.data),
       imageData.width,
@@ -39,7 +46,7 @@ export abstract class AbstractFilter implements Effect {
           this.kernel[6] * data[p + width * 4 - 4] +
           this.kernel[7] * data[p + width * 4] +
           this.kernel[8] * data[p + width * 4 + 4];
-        newData[p] = newPixel;
+        newData[p] = newPixel + this.offset;
       }
     }
     return newImageData;
