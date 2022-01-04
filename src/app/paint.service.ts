@@ -2,7 +2,7 @@ import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { Effect } from './effects/effect';
-import { ImageSelection } from './paint/image-selection';
+import { ImageSelection } from './effects/image-selection';
 import { Tab } from './paint/tab';
 import { Operation } from './sidenav/operation';
 

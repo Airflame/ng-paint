@@ -1,4 +1,4 @@
-import { ImageSelection } from "../paint/image-selection";
+import { ImageSelection } from "./image-selection";
 import { Effect } from "./effect";
 
 export class NegativeEffect implements Effect {

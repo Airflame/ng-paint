@@ -1,5 +1,5 @@
 import { Color } from '@angular-material-components/color-picker';
-import { ImageSelection } from '../paint/image-selection';
+import { ImageSelection } from './image-selection';
 import { Effect } from './effect';
 
 export class ThresholdingEffect implements Effect {
