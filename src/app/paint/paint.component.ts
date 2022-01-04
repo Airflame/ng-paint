@@ -30,26 +30,26 @@ export class PaintComponent implements OnInit {
     );
 
     down$.subscribe((event) => {
-      const clientX = event.clientX - getOffset(canvas).left;
-      const clientY = event.clientY - getOffset(canvas).top;
+      const clientX = event.clientX - this.getOffset(canvas).left;
+      const clientY = event.clientY - this.getOffset(canvas).top;
       this.canvasSvc.setStartPosition({ clientX, clientY });
     });
     paints$.subscribe((event) => {
-      const clientX = event.clientX - getOffset(canvas).left;
-      const clientY = event.clientY - getOffset(canvas).top;
+      const clientX = event.clientX - this.getOffset(canvas).left;
+      const clientY = event.clientY - this.getOffset(canvas).top;
       this.canvasSvc.onPaint({ clientX, clientY });
     });
     break$.subscribe(() => {
       this.canvasSvc.onBreak();
     });
   }
-}
 
-function getOffset(el: HTMLElement) {
-  const rect = el.getBoundingClientRect();
+  private getOffset(el: HTMLElement) {
+    const rect = el.getBoundingClientRect();
 
-  return {
-    top: rect.top + document.body.scrollTop,
-    left: rect.left + document.body.scrollLeft,
-  };
+    return {
+      top: rect.top + document.body.scrollTop,
+      left: rect.left + document.body.scrollLeft,
+    };
+  }
 }
