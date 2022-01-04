@@ -30,7 +30,7 @@ export class PaintComponent implements OnInit {
     const leave$ = fromEvent<MouseEvent>(canvas, 'mouseleave');
     const break$ = merge(up$, leave$);
     const paints$ = down$.pipe(
-      mergeMap((down) => move$.pipe(takeUntil(break$)))
+      mergeMap(() => move$.pipe(takeUntil(break$)))
     );
 
     down$.subscribe((event) => {
