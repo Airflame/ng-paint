@@ -43,7 +43,7 @@ export class PaintComponent implements OnInit {
       const clientY = event.clientY - getOffset(canvas).top;
       this.canvasSvc.onPaint({ clientX, clientY });
     });
-    break$.subscribe((event) => {
+    break$.subscribe(() => {
       this.canvasSvc.onBreak();
     });
   }
