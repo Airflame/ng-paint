@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 import { CanvasService } from '../services/canvas.service';
-import { Operation } from './operation';
+import { Operation } from '../services/operation';
 
 @Component({
   selector: 'app-sidenav',

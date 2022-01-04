@@ -1,8 +1,8 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
 import { ImageSelection } from '../effects/image-selection';
-import { Tab } from '../paint/tab';
-import { Operation } from '../sidenav/operation';
+import { Tab } from './tab';
+import { Operation } from './operation';
 
 @Injectable({
   providedIn: 'root',
