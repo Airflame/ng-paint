@@ -17,10 +17,6 @@ export class PaintComponent implements OnInit {
     this.startPainting();
   }
 
-  switchTab(): void {
-    this.canvasSvc.switchTab();
-  }
-
   private startPainting(): void {
     const { nativeElement } = this.elRef;
     const canvas = nativeElement.querySelector('canvas') as HTMLCanvasElement;
