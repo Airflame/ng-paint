@@ -71,7 +71,7 @@ export class ImageService {
       0,
       canvas.width,
       canvas.height), 0, 0);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   rotateImage(): void {
@@ -102,7 +102,7 @@ export class ImageService {
       0,
       canvas.width,
       canvas.height), 0, 0);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   cropImage(): void {

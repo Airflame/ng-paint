@@ -164,7 +164,7 @@ export class PaintService {
   }
 
   private useLine({ clientX, clientY }): void {
-    this.discardEffect();
+    this.discardChanges();
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
@@ -176,7 +176,7 @@ export class PaintService {
   }
 
   private useRectangle({ clientX, clientY }): void {
-    this.discardEffect();
+    this.discardChanges();
     this.ctx.lineJoin = 'miter';
     this.ctx.lineCap = 'butt';
     this.ctx.lineWidth = this.brushSize;
@@ -191,7 +191,7 @@ export class PaintService {
   }
 
   private useEllipse({ clientX, clientY }): void {
-    this.discardEffect();
+    this.discardChanges();
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
@@ -210,7 +210,7 @@ export class PaintService {
   }
 
   private useSelection({ clientX, clientY }): void {
-    this.discardEffect();
+    this.discardChanges();
     this.selection.x = this.startX > clientX ? clientX : this.startX;
     this.selection.y = this.startY > clientY ? clientY : this.startY;
     this.selection.width = Math.abs(clientX - this.startX);
@@ -233,7 +233,7 @@ export class PaintService {
 
   setOperation(operation: Operation): void {
     this.selection = null;
-    this.discardEffect();
+    this.discardChanges();
     this.operation = operation;
   }
 
@@ -260,7 +260,7 @@ export class PaintService {
     this.ctx.putImageData(newImageData, 0, 0);
   }
 
-  updateImageData(): void {
+  confirmChanges(): void {
     this.imageData = this.ctx.getImageData(
       0,
       0,
@@ -271,7 +271,7 @@ export class PaintService {
       this.drawSelection();
   }
 
-  discardEffect(): void {
+  discardChanges(): void {
     this.ctx.putImageData(this.imageData, 0, 0);
     if (this.selection != null)
       this.drawSelection();
