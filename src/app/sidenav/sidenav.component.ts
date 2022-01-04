@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
-import { PaintService } from '../services/paint.service';
+import { CanvasService } from '../services/canvas.service';
 import { Operation } from './operation';
 
 @Component({
@@ -11,7 +11,7 @@ import { Operation } from './operation';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, public paintSvc: PaintService) { }
+  constructor(public dialog: MatDialog, public canvasSvc: CanvasService) { }
 
   ngOnInit(): void {
   }
@@ -25,22 +25,22 @@ export class SidenavComponent implements OnInit {
   setSelectedOperation(operation: string) {
     switch (operation) {
       case "Brush":
-        this.paintSvc.setOperation(Operation.BRUSH);
+        this.canvasSvc.setOperation(Operation.BRUSH);
         break;
       case "Eraser":
-        this.paintSvc.setOperation(Operation.ERASER);
+        this.canvasSvc.setOperation(Operation.ERASER);
         break;
       case "Line":
-        this.paintSvc.setOperation(Operation.LINE);
+        this.canvasSvc.setOperation(Operation.LINE);
         break;
       case "Rectangle":
-        this.paintSvc.setOperation(Operation.RECTANGLE);
+        this.canvasSvc.setOperation(Operation.RECTANGLE);
         break;
       case "Ellipse":
-        this.paintSvc.setOperation(Operation.ELLIPSE);
+        this.canvasSvc.setOperation(Operation.ELLIPSE);
         break;
       case "Selection":
-        this.paintSvc.setOperation(Operation.SELECTION);
+        this.canvasSvc.setOperation(Operation.SELECTION);
         break;
     }
   }

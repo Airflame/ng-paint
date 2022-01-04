@@ -2,7 +2,7 @@ import { Color } from '@angular-material-components/color-picker';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/services/paint.service';
+import { CanvasService } from 'src/app/services/canvas.service';
 
 @Component({
   selector: 'app-new-dialog',
@@ -18,7 +18,7 @@ export class NewDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<NewDialogComponent>,
-    private paintSvc: PaintService
+    private canvasSvc: CanvasService
   ) {}
 
   ngOnInit(): void {
@@ -27,12 +27,12 @@ export class NewDialogComponent implements OnInit {
 
   create(): void {
     if (this.newTab) {
-      this.paintSvc.createTab(this.name, this.backgroundColor.value);
+      this.canvasSvc.createTab(this.name, this.backgroundColor.value);
     } else {
-      this.paintSvc.setTabData(this.name, this.backgroundColor.value);
+      this.canvasSvc.setTabData(this.name, this.backgroundColor.value);
     }
-    this.paintSvc.reset(this.width, this.height);
-    this.paintSvc.clear(this.backgroundColor.value);
+    this.canvasSvc.reset(this.width, this.height);
+    this.canvasSvc.clear(this.backgroundColor.value);
     this.dialogRef.close();
   }
 

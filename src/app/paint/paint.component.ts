@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { PaintService } from '../services/paint.service';
+import { CanvasService } from '../services/canvas.service';
 import { fromEvent, merge } from 'rxjs';
 import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 
@@ -10,15 +10,15 @@ import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 })
 export class PaintComponent implements OnInit {
 
-  constructor(public paintSvc: PaintService, private elRef: ElementRef) {}
+  constructor(public canvasSvc: CanvasService, private elRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.paintSvc.initialize(this.elRef.nativeElement, 800, 600);
+    this.canvasSvc.initialize(this.elRef.nativeElement, 800, 600);
     this.startPainting();
   }
 
   switchTab(): void {
-    this.paintSvc.switchTab();
+    this.canvasSvc.switchTab();
   }
 
   private startPainting(): void {
@@ -36,15 +36,15 @@ export class PaintComponent implements OnInit {
     down$.subscribe((event) => {
       const clientX = event.clientX - getOffset(canvas).left;
       const clientY = event.clientY - getOffset(canvas).top;
-      this.paintSvc.setStartPosition({ clientX, clientY });
+      this.canvasSvc.setStartPosition({ clientX, clientY });
     });
     paints$.subscribe((event) => {
       const clientX = event.clientX - getOffset(canvas).left;
       const clientY = event.clientY - getOffset(canvas).top;
-      this.paintSvc.onPaint({ clientX, clientY });
+      this.canvasSvc.onPaint({ clientX, clientY });
     });
     break$.subscribe((event) => {
-      this.paintSvc.onBreak();
+      this.canvasSvc.onBreak();
     });
   }
 }

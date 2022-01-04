@@ -6,7 +6,7 @@ import { NewDialogComponent } from '../dialogs/new-dialog/new-dialog.component';
 import { BlurFilter } from '../effects/blur-filter';
 import { SharpenFilter } from '../effects/sharpen-filter';
 import { EdgeFilter } from '../effects/edge-filter';
-import { PaintService } from '../services/paint.service';
+import { CanvasService } from '../services/canvas.service';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
 import { GrayscaleEffect } from '../effects/grayscale-effect';
 import { NegativeEffect } from '../effects/negative-effect';
@@ -33,7 +33,7 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public paintSvc: PaintService,
+    public canvasSvc: CanvasService,
     public imageSvc: ImageService,
     public effectSvc: EffectService) {}
 
@@ -45,7 +45,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   closeTab() {
-    this.paintSvc.closeTab();
+    this.canvasSvc.closeTab();
   }
 
   openBrushSizeDialog() {

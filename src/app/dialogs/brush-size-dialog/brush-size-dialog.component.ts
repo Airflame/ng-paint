@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/services/paint.service';
+import { CanvasService } from 'src/app/services/canvas.service';
 
 @Component({
   selector: 'app-brush-size-dialog',
@@ -12,15 +12,15 @@ export class BrushSizeDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<BrushSizeDialogComponent>,
-    public paintSvc: PaintService
+    public canvasSvc: CanvasService
   ) {}
 
   ngOnInit(): void {
-    this.size = this.paintSvc.getBrushSize();
+    this.size = this.canvasSvc.getBrushSize();
   }
 
   public confirm() {
-    this.paintSvc.setBrushSize(this.size);
+    this.canvasSvc.setBrushSize(this.size);
     this.dialogRef.close();
   }
 

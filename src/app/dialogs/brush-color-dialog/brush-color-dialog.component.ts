@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/services/paint.service';
+import { CanvasService } from 'src/app/services/canvas.service';
 
 @Component({
   selector: 'app-brush-color-dialog',
@@ -13,14 +13,14 @@ export class BrushColorDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<BrushColorDialogComponent>,
-    public paintSvc: PaintService
+    public canvasSvc: CanvasService
   ) {}
 
   ngOnInit(): void {
   }
 
   public confirm() {
-    this.paintSvc.setBrushColor(this.colorCtr.value);
+    this.canvasSvc.setBrushColor(this.colorCtr.value);
     this.dialogRef.close();
   }
 }

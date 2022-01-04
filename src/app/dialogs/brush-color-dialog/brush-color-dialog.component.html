@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Brush color</h1>
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="this.paintSvc.rainbowEnabled">
+    <input matInput [ngxMatColorPicker]="picker" [formControl]="colorCtr" [disabled]="this.canvasSvc.rainbowEnabled">
     <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
     <ngx-mat-color-picker #picker></ngx-mat-color-picker>
   </mat-form-field>
-  <mat-checkbox [(ngModel)]="this.paintSvc.rainbowEnabled">Rainbow brush</mat-checkbox>
+  <mat-checkbox [(ngModel)]="this.canvasSvc.rainbowEnabled">Rainbow brush</mat-checkbox>
   <div>
     Rainbow rate:
     <mat-slider
@@ -14,8 +14,8 @@
       max="10"
       step="0.5"
       class="mt-4"
-      [disabled]="!this.paintSvc.rainbowEnabled"
-      [(ngModel)]="this.paintSvc.rainbowRate"
+      [disabled]="!this.canvasSvc.rainbowEnabled"
+      [(ngModel)]="this.canvasSvc.rainbowRate"
     ></mat-slider>
   </div>
 </div>

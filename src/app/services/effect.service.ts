@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Effect } from '../effects/effect';
-import { PaintService } from './paint.service';
+import { CanvasService } from './canvas.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EffectService {
 
-  constructor(public paintSvc: PaintService) { }
+  constructor(public canvasSvc: CanvasService) { }
 
   applyEffect(effect: Effect): void {
-    const newImageData = effect.applyEffect(this.paintSvc.getImageData(), this.paintSvc.getSelection());
-    this.paintSvc.getCtx().putImageData(newImageData, 0, 0);
+    const newImageData = effect.applyEffect(this.canvasSvc.getImageData(), this.canvasSvc.getSelection());
+    this.canvasSvc.getCtx().putImageData(newImageData, 0, 0);
   }
 
   confirmChanges(): void {
-    this.paintSvc.setImageData(this.paintSvc.getCtx().getImageData(
+    this.canvasSvc.setImageData(this.canvasSvc.getCtx().getImageData(
       0,
       0,
-      this.paintSvc.getCanvas().width,
-      this.paintSvc.getCanvas().height
+      this.canvasSvc.getCanvas().width,
+      this.canvasSvc.getCanvas().height
     ));
-    if (this.paintSvc.getSelection() != null)
-      this.paintSvc.drawSelection();
+    if (this.canvasSvc.getSelection() != null)
+      this.canvasSvc.drawSelection();
   }
 
   discardChanges(): void {
-    this.paintSvc.getCtx().putImageData(this.paintSvc.getImageData(), 0, 0);
-    if (this.paintSvc.getSelection() != null)
-      this.paintSvc.drawSelection();
+    this.canvasSvc.getCtx().putImageData(this.canvasSvc.getImageData(), 0, 0);
+    if (this.canvasSvc.getSelection() != null)
+      this.canvasSvc.drawSelection();
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaintService } from './paint.service';
+import { CanvasService } from './canvas.service';
 import { saveAs } from 'file-saver';
 
 @Injectable({
@@ -7,21 +7,21 @@ import { saveAs } from 'file-saver';
 })
 export class ImageService {
 
-  constructor(public paintSvc: PaintService) { }
+  constructor(public canvasSvc: CanvasService) { }
 
   save(): void {
-    this.paintSvc.getCanvas().toBlob(function(blob) {
+    this.canvasSvc.getCanvas().toBlob(function(blob) {
       saveAs(blob, "image.png");
     });
   }
 
   loadImage(file: File): void {
     const reader = new FileReader();
-    const ctx = this.paintSvc.getCtx();
-    const canvas = this.paintSvc.getCanvas();
+    const ctx = this.canvasSvc.getCtx();
+    const canvas = this.canvasSvc.getCanvas();
     const img = new Image();
-    const size = this.paintSvc.getBrushSize();
-    const service = this.paintSvc;
+    const size = this.canvasSvc.getBrushSize();
+    const service = this.canvasSvc;
     reader.onload = function (evt) {
       img.onload = function () {
         canvas.width = img.width;
@@ -45,9 +45,9 @@ export class ImageService {
   }
 
   resizeImage(width: number, height: number): void {
-    const canvas = this.paintSvc.getCanvas();
-    const ctx = this.paintSvc.getCtx();
-    const imageData = this.paintSvc.getImageData();
+    const canvas = this.canvasSvc.getCanvas();
+    const ctx = this.canvasSvc.getCtx();
+    const imageData = this.canvasSvc.getImageData();
     const scaleX = width / canvas.width;
     const scaleY = height / canvas.height;
     var newCanvas: HTMLCanvasElement = document.createElement('canvas');
@@ -61,9 +61,9 @@ export class ImageService {
     scaleCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
     var scaleCtx = scaleCanvas.getContext("2d");
 
-    this.paintSvc.resetSelection();
-    this.paintSvc.reset(width, height);
-    this.paintSvc.clear();
+    this.canvasSvc.resetSelection();
+    this.canvasSvc.reset(width, height);
+    this.canvasSvc.clear();
     scaleCtx.scale(scaleX, scaleY);
     scaleCtx.drawImage(newCanvas, 0, 0);
     ctx.putImageData(scaleCtx.getImageData(
@@ -75,9 +75,9 @@ export class ImageService {
   }
 
   rotateImage(): void {
-    const canvas = this.paintSvc.getCanvas();
-    const ctx = this.paintSvc.getCtx();
-    const imageData = this.paintSvc.getImageData();
+    const canvas = this.canvasSvc.getCanvas();
+    const ctx = this.canvasSvc.getCtx();
+    const imageData = this.canvasSvc.getImageData();
     var newCanvas: HTMLCanvasElement = document.createElement('canvas');
     var rotateCanvas: HTMLCanvasElement = document.createElement('canvas');
     const width = canvas.width;
@@ -91,9 +91,9 @@ export class ImageService {
     rotateCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
     var rotateCtx = rotateCanvas.getContext("2d");
 
-    this.paintSvc.resetSelection();
-    this.paintSvc.reset(height, width);
-    this.paintSvc.clear();
+    this.canvasSvc.resetSelection();
+    this.canvasSvc.reset(height, width);
+    this.canvasSvc.clear();
     rotateCtx.translate(height / 2, width / 2);
     rotateCtx.rotate(90 * Math.PI/180);
     rotateCtx.drawImage(newCanvas, -width / 2, -height / 2);
@@ -106,40 +106,40 @@ export class ImageService {
   }
 
   cropImage(): void {
-    const ctx = this.paintSvc.getCtx();
-    const selection = this.paintSvc.getSelection();
-    ctx.putImageData(this.paintSvc.getImageData(), 0, 0);
-    this.paintSvc.setImageData(ctx.getImageData(
+    const ctx = this.canvasSvc.getCtx();
+    const selection = this.canvasSvc.getSelection();
+    ctx.putImageData(this.canvasSvc.getImageData(), 0, 0);
+    this.canvasSvc.setImageData(ctx.getImageData(
       selection.x,
       selection.y,
       selection.width,
       selection.height
     ));
-    this.paintSvc.reset(selection.width, selection.height);
-    ctx.putImageData(this.paintSvc.getImageData(), 0, 0);
-    this.paintSvc.resetSelection();
+    this.canvasSvc.reset(selection.width, selection.height);
+    ctx.putImageData(this.canvasSvc.getImageData(), 0, 0);
+    this.canvasSvc.resetSelection();
   }
 
   getCanvasWidth(): number {
-    return this.paintSvc.getCanvas().width;
+    return this.canvasSvc.getCanvas().width;
   }
 
   getCanvasHeight(): number {
-    return this.paintSvc.getCanvas().height;
+    return this.canvasSvc.getCanvas().height;
   }
 
   isImageSelected(): boolean {
-    return this.paintSvc.getSelection() != null;
+    return this.canvasSvc.getSelection() != null;
   }
 
   private confirmChanges(): void {
-    this.paintSvc.setImageData(this.paintSvc.getCtx().getImageData(
+    this.canvasSvc.setImageData(this.canvasSvc.getCtx().getImageData(
       0,
       0,
-      this.paintSvc.getCanvas().width,
-      this.paintSvc.getCanvas().height
+      this.canvasSvc.getCanvas().width,
+      this.canvasSvc.getCanvas().height
     ));
-    if (this.paintSvc.getSelection() != null)
-      this.paintSvc.drawSelection();
+    if (this.canvasSvc.getSelection() != null)
+      this.canvasSvc.drawSelection();
   }
 }
