@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { merge } from 'rxjs';
 import { ThresholdingEffect } from 'src/app/effects/thresholding-effect';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-thresholding-dialog',
@@ -54,7 +54,7 @@ export class ThresholdingDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.confirmEffect();
+    this.paintSvc.updateImageData();
     this.dialogRef.close();
   }
 }

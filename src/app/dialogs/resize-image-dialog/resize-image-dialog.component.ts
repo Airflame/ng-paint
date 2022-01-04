@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/paint.service';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-resize-image-dialog',
@@ -15,17 +15,17 @@ export class ResizeImageDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ResizeImageDialogComponent>,
-    private paintSvc: PaintService
+    private imageSvc: ImageService
   ) {}
 
   ngOnInit(): void {
-    this.width = this.paintSvc.getCanvasWidth();
-    this.height = this.paintSvc.getCanvasHeight();
+    this.width = this.imageSvc.getCanvasWidth();
+    this.height = this.imageSvc.getCanvasHeight();
     this.ratio = this.width / this.height;
   }
 
   resize(): void {
-    this.paintSvc.resizeImage(this.width, this.height);
+    this.imageSvc.resizeImage(this.width, this.height);
     this.dialogRef.close();
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BrushColorDialogComponent } from '../dialogs/brush-color-dialog/brush-color-dialog.component';
-import { PaintService } from '../paint.service';
+import { PaintService } from '../services/paint.service';
 import { Operation } from './operation';
 
 @Component({

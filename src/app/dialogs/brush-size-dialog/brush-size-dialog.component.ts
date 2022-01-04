@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-brush-size-dialog',

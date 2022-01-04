@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BrightnessEffect } from 'src/app/effects/brightness-effect';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-brightness-dialog',
@@ -26,7 +26,7 @@ export class BrightnessDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.confirmEffect();
+    this.paintSvc.updateImageData();
     this.dialogRef.close();
   }
 }

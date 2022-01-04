@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ColorEffect } from 'src/app/effects/color-effect';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-color-levels-dialog',
@@ -36,7 +36,7 @@ export class ColorLevelsDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.confirmEffect();
+    this.paintSvc.updateImageData();
     this.dialogRef.close();
   }
 }

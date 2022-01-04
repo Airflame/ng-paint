@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { PaintService } from '../paint.service';
+import { PaintService } from '../services/paint.service';
 import { fromEvent, merge } from 'rxjs';
 import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 

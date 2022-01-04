@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-brush-color-dialog',

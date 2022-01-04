@@ -1,10 +1,9 @@
 import { Color } from '@angular-material-components/color-picker';
 import { Injectable } from '@angular/core';
-import { saveAs } from 'file-saver';
-import { Effect } from './effects/effect';
-import { ImageSelection } from './effects/image-selection';
-import { Tab } from './paint/tab';
-import { Operation } from './sidenav/operation';
+import { Effect } from '../effects/effect';
+import { ImageSelection } from '../effects/image-selection';
+import { Tab } from '../paint/tab';
+import { Operation } from '../sidenav/operation';
 
 @Injectable({
   providedIn: 'root',
@@ -72,12 +71,6 @@ export class PaintService {
   setTabData(name: string, backgroundColor: Color): void {
     this.tabs[this.selectedTabIndex].setName(name);
     this.tabs[this.selectedTabIndex].setBackgroundColor(backgroundColor);
-  }
-
-  save(): void {
-    this.canvas.toBlob(function(blob) {
-      saveAs(blob, "image.png");
-    });
   }
 
   closeTab(): void {
@@ -267,7 +260,7 @@ export class PaintService {
     this.ctx.putImageData(newImageData, 0, 0);
   }
 
-  confirmEffect(): void {
+  updateImageData(): void {
     this.imageData = this.ctx.getImageData(
       0,
       0,
@@ -284,113 +277,32 @@ export class PaintService {
       this.drawSelection();
   }
 
-  loadImage(file: File): void {
-    const reader = new FileReader();
-    const ctx = this.ctx;
-    const canvas = this.canvas;
-    const img = new Image();
-    const size = this.brushSize;
-    const service = this;
-    reader.onload = function (evt) {
-      img.onload = function () {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.lineWidth = size;
-        ctx.drawImage(img, 0, 0);
-        service.imageData = ctx.getImageData(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-      };
-      if (typeof evt.target.result === 'string') {
-        img.src = evt.target.result;
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  resizeImage(width: number, height: number): void {
-    const scaleX = width / this.canvas.width;
-    const scaleY = height / this.canvas.height;
-    var newCanvas: HTMLCanvasElement = document.createElement('canvas');
-    var scaleCanvas: HTMLCanvasElement = document.createElement('canvas');
-
-    newCanvas.width = this.canvas.width;
-    newCanvas.height = this.canvas.height;
-    newCanvas.getContext("2d").putImageData(this.imageData, 0, 0);
-    scaleCanvas.width = width;
-    scaleCanvas.height = height;
-    scaleCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
-    var scaleCtx = scaleCanvas.getContext("2d");
-
-    this.selection = null;
-    this.reset(width, height);
-    this.clear();
-    scaleCtx.scale(scaleX, scaleY);
-    scaleCtx.drawImage(newCanvas, 0, 0);
-    this.ctx.putImageData(scaleCtx.getImageData(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height), 0, 0);
-    this.confirmEffect();
-  }
-
-  rotateImage(): void {
-    var newCanvas: HTMLCanvasElement = document.createElement('canvas');
-    var rotateCanvas: HTMLCanvasElement = document.createElement('canvas');
-    const width = this.canvas.width;
-    const height = this.canvas.height;
-
-    newCanvas.width = this.canvas.width;
-    newCanvas.height = this.canvas.height;
-    newCanvas.getContext("2d").putImageData(this.imageData, 0, 0);
-    rotateCanvas.width = this.canvas.height;
-    rotateCanvas.height = this.canvas.width;
-    rotateCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
-    var rotateCtx = rotateCanvas.getContext("2d");
-
-    this.selection = null;
-    this.reset(this.canvas.height, this.canvas.width);
-    this.clear();
-    rotateCtx.translate(height / 2, width / 2);
-    rotateCtx.rotate(90 * Math.PI/180);
-    rotateCtx.drawImage(newCanvas, -width / 2, -height / 2);
-    this.ctx.putImageData(rotateCtx.getImageData(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height), 0, 0);
-    this.confirmEffect();
-  }
-
-  cropImage(): void {
-    this.ctx.putImageData(this.imageData, 0, 0);
-    this.imageData = this.ctx.getImageData(
-      this.selection.x,
-      this.selection.y,
-      this.selection.width,
-      this.selection.height
-    );
-    this.reset(this.selection.width, this.selection.height);
-    this.ctx.putImageData(this.imageData, 0, 0);
-    this.selection = null;
-  }
-
   isImageSelected(): boolean {
     return this.selection != null;
   }
 
-  getCanvasWidth(): number {
-    return this.canvas.width;
+  getCanvas(): HTMLCanvasElement {
+    return this.canvas;
   }
 
-  getCanvasHeight(): number {
-    return this.canvas.height;
+  getCtx(): CanvasRenderingContext2D {
+    return this.ctx;
+  }
+
+  getImageData(): ImageData {
+    return this.imageData;
+  }
+
+  setImageData(imageData: ImageData): void {
+    this.imageData = imageData;
+  }
+
+  getSelection(): ImageSelection {
+    return this.selection;
+  }
+
+  resetSelection(): void {
+    this.selection = null;
   }
 
   private drawSelection(): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ContrastEffect } from 'src/app/effects/contrast-effect';
-import { PaintService } from 'src/app/paint.service';
+import { PaintService } from 'src/app/services/paint.service';
 
 @Component({
   selector: 'app-contrast-dialog',
@@ -26,7 +26,7 @@ export class ContrastDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.confirmEffect();
+    this.paintSvc.updateImageData();
     this.dialogRef.close();
   }
 }
