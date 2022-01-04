@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HueSaturationEffect } from 'src/app/effects/hue-saturation-effect';
-import { PaintService } from 'src/app/services/paint.service';
+import { EffectService } from 'src/app/services/effect.service';
 
 @Component({
   selector: 'app-hue-saturation-dialog',
@@ -13,25 +13,25 @@ export class HueSaturationDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<HueSaturationDialogComponent>,
-    private paintSvc: PaintService
+    private effectSvc: EffectService
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.effectSvc.discardChanges(); });
   }
 
   public setHue(event): void {
     this.hueSaturationEffect.setHue(event.value);
-    this.paintSvc.applyEffect(this.hueSaturationEffect);
+    this.effectSvc.applyEffect(this.hueSaturationEffect);
   }
 
   public setSaturation(event): void {
     this.hueSaturationEffect.setSaturation(event.value);
-    this.paintSvc.applyEffect(this.hueSaturationEffect);
+    this.effectSvc.applyEffect(this.hueSaturationEffect);
   }
 
   public confirm(): void {
-    this.paintSvc.confirmChanges();
+    this.effectSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

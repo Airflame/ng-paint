@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ContrastEffect } from 'src/app/effects/contrast-effect';
-import { PaintService } from 'src/app/services/paint.service';
+import { EffectService } from 'src/app/services/effect.service';
 
 @Component({
   selector: 'app-contrast-dialog',
@@ -13,20 +13,20 @@ export class ContrastDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ContrastDialogComponent>,
-    private paintSvc: PaintService
+    private effectSvc: EffectService
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.effectSvc.discardChanges(); });
   }
 
   public setContrast(event): void {
     this.contrastEffect.setValue(event.value);
-    this.paintSvc.applyEffect(this.contrastEffect);
+    this.effectSvc.applyEffect(this.contrastEffect);
   }
 
   public confirm(): void {
-    this.paintSvc.confirmChanges();
+    this.effectSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

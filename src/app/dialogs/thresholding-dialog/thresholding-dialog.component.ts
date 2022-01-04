@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { merge } from 'rxjs';
 import { ThresholdingEffect } from 'src/app/effects/thresholding-effect';
-import { PaintService } from 'src/app/services/paint.service';
+import { EffectService } from 'src/app/services/effect.service';
 
 @Component({
   selector: 'app-thresholding-dialog',
@@ -27,7 +27,7 @@ export class ThresholdingDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ThresholdingDialogComponent>,
-    private paintSvc: PaintService
+    private effectSvc: EffectService
   ) {}
 
   ngOnInit(): void {
@@ -37,24 +37,24 @@ export class ThresholdingDialogComponent implements OnInit {
     merge(this.colorDark.valueChanges, this.colorLight.valueChanges).subscribe(value => {
       this.thresholdingEffect.setColorDark(this.colorDark.value);
       this.thresholdingEffect.setColorLight(this.colorLight.value);
-      this.paintSvc.applyEffect(this.thresholdingEffect);
+      this.effectSvc.applyEffect(this.thresholdingEffect);
     });
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.effectSvc.discardChanges(); });
   }
 
   onSliderMove(event): void {
     this.thresholdingEffect.setThreshold(event.value);
-    this.paintSvc.applyEffect(this.thresholdingEffect);
+    this.effectSvc.applyEffect(this.thresholdingEffect);
   }
 
   onCheckboxChange(): void {
     this.thresholdingEffect.setKeepDark(this.keepDark);
     this.thresholdingEffect.setKeepLight(this.keepLight);
-    this.paintSvc.applyEffect(this.thresholdingEffect);
+    this.effectSvc.applyEffect(this.thresholdingEffect);
   }
 
   public confirm(): void {
-    this.paintSvc.confirmChanges();
+    this.effectSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ColorEffect } from 'src/app/effects/color-effect';
-import { PaintService } from 'src/app/services/paint.service';
+import { EffectService } from 'src/app/services/effect.service';
 
 @Component({
   selector: 'app-color-levels-dialog',
@@ -13,30 +13,30 @@ export class ColorLevelsDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ColorLevelsDialogComponent>,
-    private paintSvc: PaintService
+    private effectSvc: EffectService
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.effectSvc.discardChanges(); });
   }
 
   public setRed(event): void {
     this.colorEffect.setRed(event.value);
-    this.paintSvc.applyEffect(this.colorEffect);
+    this.effectSvc.applyEffect(this.colorEffect);
   }
 
   public setGreen(event): void {
     this.colorEffect.setGreen(event.value);
-    this.paintSvc.applyEffect(this.colorEffect);
+    this.effectSvc.applyEffect(this.colorEffect);
   }
 
   public setBlue(event): void {
     this.colorEffect.setBlue(event.value);
-    this.paintSvc.applyEffect(this.colorEffect);
+    this.effectSvc.applyEffect(this.colorEffect);
   }
 
   public confirm(): void {
-    this.paintSvc.confirmChanges();
+    this.effectSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

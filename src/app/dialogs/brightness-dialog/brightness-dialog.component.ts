@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BrightnessEffect } from 'src/app/effects/brightness-effect';
-import { PaintService } from 'src/app/services/paint.service';
+import { EffectService } from 'src/app/services/effect.service';
 
 @Component({
   selector: 'app-brightness-dialog',
@@ -13,20 +13,20 @@ export class BrightnessDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<BrightnessDialogComponent>,
-    private paintSvc: PaintService
+    private effectSvc: EffectService
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.effectSvc.discardChanges(); });
   }
 
   public setBrightness(event): void {
     this.brightnessEffect.setValue(event.value);
-    this.paintSvc.applyEffect(this.brightnessEffect);
+    this.effectSvc.applyEffect(this.brightnessEffect);
   }
 
   public confirm(): void {
-    this.paintSvc.confirmChanges();
+    this.effectSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

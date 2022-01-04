@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { SobelHorizontalFilter } from '../effects/sobel-horizontal-filter';
 import { SobelVerticalFilter } from '../effects/sobel-vertical-filter';
 import { ImageService } from '../services/image.service';
+import { EffectService } from '../services/effect.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,13 +31,13 @@ import { ImageService } from '../services/image.service';
 export class ToolbarComponent implements OnInit {
   private file: File;
 
-  constructor(public dialog: MatDialog, public paintSvc: PaintService, public imageSvc: ImageService) {}
+  constructor(
+    public dialog: MatDialog,
+    public paintSvc: PaintService,
+    public imageSvc: ImageService,
+    public effectSvc: EffectService) {}
 
   ngOnInit(): void {}
-
-  public clearCanvas(): void {
-    this.paintSvc.clear();
-  }
 
   handleFileInput(target: EventTarget): void {
     this.file = (target as HTMLInputElement).files.item(0);
@@ -112,48 +113,48 @@ export class ToolbarComponent implements OnInit {
   }
 
   applyGrayscale(): void {
-    this.paintSvc.applyEffect(new GrayscaleEffect);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new GrayscaleEffect);
+    this.effectSvc.confirmChanges();
   }
 
   applyBlur(): void {
-    this.paintSvc.applyEffect(new BlurFilter);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new BlurFilter);
+    this.effectSvc.confirmChanges();
   }
 
   applySharpen(): void {
-    this.paintSvc.applyEffect(new SharpenFilter);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new SharpenFilter);
+    this.effectSvc.confirmChanges();
   }
 
   applyEdgeDetection(): void {
-    this.paintSvc.applyEffect(new EdgeFilter);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new EdgeFilter);
+    this.effectSvc.confirmChanges();
   }
 
   applyHorizontalSobel(): void {
-    this.paintSvc.applyEffect(new SobelHorizontalFilter);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new SobelHorizontalFilter);
+    this.effectSvc.confirmChanges();
   }
 
   applyVerticalSobel(): void {
-    this.paintSvc.applyEffect(new SobelVerticalFilter);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new SobelVerticalFilter);
+    this.effectSvc.confirmChanges();
   }
 
   applyNegative(): void {
-    this.paintSvc.applyEffect(new NegativeEffect);
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new NegativeEffect);
+    this.effectSvc.confirmChanges();
   }
 
   applyMirrorHorizontal(): void {
-    this.paintSvc.applyEffect(new MirrorEffect(true));
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new MirrorEffect(true));
+    this.effectSvc.confirmChanges();
   }
 
   applyMirrorVertical(): void {
-    this.paintSvc.applyEffect(new MirrorEffect(false));
-    this.paintSvc.confirmChanges();
+    this.effectSvc.applyEffect(new MirrorEffect(false));
+    this.effectSvc.confirmChanges();
   }
 
   applyRotate(): void {
@@ -165,7 +166,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   isImageSelected(): boolean {
-    return this.paintSvc.isImageSelected();
+    return this.imageSvc.isImageSelected();
   }
 
   getLogoSrc(): string {

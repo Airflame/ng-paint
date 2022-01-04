@@ -71,7 +71,7 @@ export class ImageService {
       0,
       canvas.width,
       canvas.height), 0, 0);
-    this.paintSvc.confirmChanges();
+    this.confirmChanges();
   }
 
   rotateImage(): void {
@@ -102,7 +102,7 @@ export class ImageService {
       0,
       canvas.width,
       canvas.height), 0, 0);
-    this.paintSvc.confirmChanges();
+    this.confirmChanges();
   }
 
   cropImage(): void {
@@ -126,5 +126,20 @@ export class ImageService {
 
   getCanvasHeight(): number {
     return this.paintSvc.getCanvas().height;
+  }
+
+  isImageSelected(): boolean {
+    return this.paintSvc.getSelection() != null;
+  }
+
+  private confirmChanges(): void {
+    this.paintSvc.setImageData(this.paintSvc.getCtx().getImageData(
+      0,
+      0,
+      this.paintSvc.getCanvas().width,
+      this.paintSvc.getCanvas().height
+    ));
+    if (this.paintSvc.getSelection() != null)
+      this.paintSvc.drawSelection();
   }
 }

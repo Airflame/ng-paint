@@ -164,7 +164,7 @@ export class PaintService {
   }
 
   private useLine({ clientX, clientY }): void {
-    this.discardChanges();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
@@ -176,7 +176,7 @@ export class PaintService {
   }
 
   private useRectangle({ clientX, clientY }): void {
-    this.discardChanges();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.ctx.lineJoin = 'miter';
     this.ctx.lineCap = 'butt';
     this.ctx.lineWidth = this.brushSize;
@@ -191,7 +191,7 @@ export class PaintService {
   }
 
   private useEllipse({ clientX, clientY }): void {
-    this.discardChanges();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     this.ctx.lineWidth = this.brushSize;
@@ -210,7 +210,7 @@ export class PaintService {
   }
 
   private useSelection({ clientX, clientY }): void {
-    this.discardChanges();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.selection.x = this.startX > clientX ? clientX : this.startX;
     this.selection.y = this.startY > clientY ? clientY : this.startY;
     this.selection.width = Math.abs(clientX - this.startX);
@@ -233,7 +233,7 @@ export class PaintService {
 
   setOperation(operation: Operation): void {
     this.selection = null;
-    this.discardChanges();
+    this.ctx.putImageData(this.imageData, 0, 0);
     this.operation = operation;
   }
 
@@ -253,32 +253,6 @@ export class PaintService {
 
   getBrushSize(): number {
     return this.brushSize;
-  }
-
-  applyEffect(effect: Effect): void {
-    const newImageData = effect.applyEffect(this.imageData, this.selection);
-    this.ctx.putImageData(newImageData, 0, 0);
-  }
-
-  confirmChanges(): void {
-    this.imageData = this.ctx.getImageData(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    );
-    if (this.selection != null)
-      this.drawSelection();
-  }
-
-  discardChanges(): void {
-    this.ctx.putImageData(this.imageData, 0, 0);
-    if (this.selection != null)
-      this.drawSelection();
-  }
-
-  isImageSelected(): boolean {
-    return this.selection != null;
   }
 
   getCanvas(): HTMLCanvasElement {
@@ -305,7 +279,7 @@ export class PaintService {
     this.selection = null;
   }
 
-  private drawSelection(): void {
+  drawSelection(): void {
     this.ctx.lineJoin = 'miter';
     this.ctx.lineCap = 'butt';
     this.ctx.lineWidth = 1;
