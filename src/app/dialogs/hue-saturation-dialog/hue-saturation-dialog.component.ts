@@ -17,7 +17,7 @@ export class HueSaturationDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
   }
 
   public setHue(event): void {
@@ -31,7 +31,7 @@ export class HueSaturationDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

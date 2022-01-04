@@ -39,7 +39,7 @@ export class ThresholdingDialogComponent implements OnInit {
       this.thresholdingEffect.setColorLight(this.colorLight.value);
       this.paintSvc.applyEffect(this.thresholdingEffect);
     });
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
   }
 
   onSliderMove(event): void {
@@ -54,7 +54,7 @@ export class ThresholdingDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

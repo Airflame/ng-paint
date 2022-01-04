@@ -17,7 +17,7 @@ export class ColorLevelsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardEffect(); });
+    this.dialogRef.backdropClick().subscribe(() => { this.paintSvc.discardChanges(); });
   }
 
   public setRed(event): void {
@@ -36,7 +36,7 @@ export class ColorLevelsDialogComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
     this.dialogRef.close();
   }
 }

@@ -113,47 +113,47 @@ export class ToolbarComponent implements OnInit {
 
   applyGrayscale(): void {
     this.paintSvc.applyEffect(new GrayscaleEffect);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyBlur(): void {
     this.paintSvc.applyEffect(new BlurFilter);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applySharpen(): void {
     this.paintSvc.applyEffect(new SharpenFilter);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyEdgeDetection(): void {
     this.paintSvc.applyEffect(new EdgeFilter);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyHorizontalSobel(): void {
     this.paintSvc.applyEffect(new SobelHorizontalFilter);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyVerticalSobel(): void {
     this.paintSvc.applyEffect(new SobelVerticalFilter);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyNegative(): void {
     this.paintSvc.applyEffect(new NegativeEffect);
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyMirrorHorizontal(): void {
     this.paintSvc.applyEffect(new MirrorEffect(true));
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyMirrorVertical(): void {
     this.paintSvc.applyEffect(new MirrorEffect(false));
-    this.paintSvc.updateImageData();
+    this.paintSvc.confirmChanges();
   }
 
   applyRotate(): void {
