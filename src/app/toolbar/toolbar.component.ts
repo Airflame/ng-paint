@@ -44,10 +44,6 @@ export class ToolbarComponent implements OnInit {
     this.imageSvc.loadImage(this.file);
   }
 
-  closeTab() {
-    this.canvasSvc.closeTab();
-  }
-
   openBrushSizeDialog() {
     const dialogRef = this.dialog.open(BrushSizeDialogComponent, {
       width: '300px',
