@@ -4,11 +4,11 @@ import { fromEvent, merge } from 'rxjs';
 import { mergeMap, takeLast, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-paint',
-  templateUrl: './paint.component.html',
-  styleUrls: ['./paint.component.css'],
+  selector: 'app-canvas',
+  templateUrl: './canvas.component.html',
+  styleUrls: ['./canvas.component.css'],
 })
-export class PaintComponent implements OnInit {
+export class CanvasComponent implements OnInit {
 
   constructor(public canvasSvc: CanvasService, private elRef: ElementRef) {}
 

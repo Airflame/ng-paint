@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { PaintComponent } from './paint/paint.component';
+import { CanvasComponent } from './canvas/canvas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
@@ -37,7 +36,7 @@ import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.compon
 @NgModule({
   declarations: [
     AppComponent,
-    PaintComponent,
+    CanvasComponent,
     ToolbarComponent,
     BrightnessDialogComponent,
     NewDialogComponent,
