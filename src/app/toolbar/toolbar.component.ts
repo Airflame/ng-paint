@@ -105,7 +105,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   openSaveDialog() {
-    this.imageSvc.save();
+    this.imageSvc.saveImage();
   }
 
   applyGrayscale(): void {

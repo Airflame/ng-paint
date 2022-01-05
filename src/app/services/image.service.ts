@@ -9,7 +9,7 @@ export class ImageService {
 
   constructor(public canvasSvc: CanvasService) { }
 
-  save(): void {
+  saveImage(): void {
     this.canvasSvc.getCanvas().toBlob(function(blob) {
       saveAs(blob, "image.png");
     });
