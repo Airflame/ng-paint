@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImageService } from 'src/app/services/image.service';
 
@@ -9,8 +8,8 @@ import { ImageService } from 'src/app/services/image.service';
   styleUrls: ['./resize-image-dialog.component.css']
 })
 export class ResizeImageDialogComponent implements OnInit {
-  public width: FormControl = new FormControl(800, [Validators.required, Validators.max(5000), Validators.min(1)]);
-  public height: FormControl = new FormControl(600, [Validators.required, Validators.max(5000), Validators.min(1)]);
+  public width: number = 800;
+  public height: number = 600;
   public keepRatio: boolean = true;
   private ratio: number;
 
@@ -20,23 +19,35 @@ export class ResizeImageDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.width.setValue(this.imageSvc.getCanvasWidth());
-    this.height.setValue(this.imageSvc.getCanvasHeight());
-    this.ratio = this.width.value / this.height.value;
+    this.width = this.imageSvc.getCanvasWidth();
+    this.height = this.imageSvc.getCanvasHeight();
+    this.ratio = this.width / this.height;
   }
 
   resize(): void {
-    this.imageSvc.resizeImage(this.width.value, this.height.value);
+    this.imageSvc.resizeImage(this.width, this.height);
     this.dialogRef.close();
   }
 
   widthChanged(): void {
     if (this.keepRatio)
-      this.height.setValue(Math.floor(this.width.value / this.ratio));
+      this.height = Math.floor(this.width / this.ratio);
   }
 
   heightChanged(): void {
     if (this.keepRatio)
-      this.width.setValue(Math.floor(this.height.value * this.ratio));
+      this.width = Math.floor(this.height * this.ratio);
+  }
+
+  isWidthValid(): boolean {
+    return this.width > 0 && this.width <= 5000;
+  }
+
+  isHeightValid(): boolean {
+    return this.height > 0 && this.height <= 5000;
+  }
+
+  isValid(): boolean {
+    return this.isWidthValid() && this.isHeightValid();
   }
 }
