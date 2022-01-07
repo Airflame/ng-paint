@@ -9,7 +9,7 @@ import { CanvasService } from 'src/app/services/canvas.service';
   styleUrls: ['./brush-size-dialog.component.css']
 })
 export class BrushSizeDialogComponent implements OnInit {
-  public size: FormControl = new FormControl(15, [Validators.required, Validators.max(2500), Validators.min(1)]);;
+  public size: FormControl = new FormControl(15, [Validators.required, Validators.max(2000), Validators.min(1)]);;
 
   constructor(
     public dialogRef: MatDialogRef<BrushSizeDialogComponent>,

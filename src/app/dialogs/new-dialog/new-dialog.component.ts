@@ -10,7 +10,7 @@ import { CanvasService } from 'src/app/services/canvas.service';
   styleUrls: ['./new-dialog.component.css']
 })
 export class NewDialogComponent implements OnInit {
-  public name: FormControl = new FormControl("New Image", [Validators.required, Validators.maxLength(15)]);
+  public name: FormControl = new FormControl("New Image", [Validators.required, Validators.maxLength(20)]);
   public width: FormControl = new FormControl(800, [Validators.required, Validators.max(5000), Validators.min(1)]);
   public height: FormControl = new FormControl(600, [Validators.required, Validators.max(5000), Validators.min(1)]);
   public newTab: boolean = false;
