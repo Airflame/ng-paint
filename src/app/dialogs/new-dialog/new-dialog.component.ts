@@ -10,9 +10,9 @@ import { CanvasService } from 'src/app/services/canvas.service';
   styleUrls: ['./new-dialog.component.css']
 })
 export class NewDialogComponent implements OnInit {
-  public name: string = "New image";
-  public width: number = 800;
-  public height: number = 600;
+  public name: FormControl = new FormControl("New Image", [Validators.required, Validators.maxLength(15)]);
+  public width: FormControl = new FormControl(800, [Validators.required, Validators.max(5000), Validators.min(1)]);
+  public height: FormControl = new FormControl(600, [Validators.required, Validators.max(5000), Validators.min(1)]);
   public newTab: boolean = false;
   backgroundColor: AbstractControl = new FormControl(null, [Validators.required]);
 
@@ -27,12 +27,12 @@ export class NewDialogComponent implements OnInit {
 
   create(): void {
     if (this.newTab) {
-      this.canvasSvc.createTab(this.name, this.backgroundColor.value);
+      this.canvasSvc.createTab(this.name.value, this.backgroundColor.value);
     } else {
-      this.canvasSvc.setTabData(this.name, this.backgroundColor.value);
+      this.canvasSvc.setTabData(this.name.value, this.backgroundColor.value);
     }
-    this.canvasSvc.reset(this.width, this.height);
-    this.canvasSvc.clear(this.backgroundColor.value);
+    this.canvasSvc.reset(this.width.value, this.height.value);
+    this.canvasSvc.clear(this.backgroundColor.value.value);
     this.dialogRef.close();
   }
 

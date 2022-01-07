@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CanvasService } from 'src/app/services/canvas.service';
 
@@ -8,7 +9,7 @@ import { CanvasService } from 'src/app/services/canvas.service';
   styleUrls: ['./brush-size-dialog.component.css']
 })
 export class BrushSizeDialogComponent implements OnInit {
-  public size: number;
+  public size: FormControl = new FormControl(15, [Validators.required, Validators.max(2500), Validators.min(1)]);;
 
   constructor(
     public dialogRef: MatDialogRef<BrushSizeDialogComponent>,
@@ -16,11 +17,11 @@ export class BrushSizeDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.size = this.canvasSvc.getBrushSize();
+    this.size.setValue(this.canvasSvc.getBrushSize());
   }
 
   public confirm() {
-    this.canvasSvc.setBrushSize(this.size);
+    this.canvasSvc.setBrushSize(this.size.value);
     this.dialogRef.close();
   }
 

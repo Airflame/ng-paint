@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Size:</mat-label>
-    <input matInput class="ml-auto" type="number" [(ngModel)]="this.size" matInput/>
+    <input matInput class="ml-auto" type="number" [formControl]="this.size" matInput/>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="ml-auto" (click)="this.confirm();">Ok</button>
+  <button mat-button class="ml-auto" (click)="this.confirm();" [disabled]="!this.size.valid">Ok</button>
 </div>

@@ -3,7 +3,7 @@
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Image name:</mat-label>
-      <input matInput [(ngModel)]="name">
+      <input matInput [formControl]="name">
     </mat-form-field>
   </div>
   <div>
@@ -17,17 +17,18 @@
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Width:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="width" value="800" matInput/>
+      <input matInput class="ml-auto" type="number" [formControl]="width" value="800" matInput/>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Height:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="height" value="600" matInput/>
+      <input matInput class="ml-auto" type="number" [formControl]="height" value="600" matInput/>
     </mat-form-field>
     <mat-checkbox [(ngModel)]="newTab">Create in a new tab</mat-checkbox>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="ml-auto" (click)="create()">Create</button>
+  <button mat-button class="ml-auto" (click)="create()" [disabled]="
+  !this.name.valid || !this.width.valid || !this.height.valid">Create</button>
 </div>
