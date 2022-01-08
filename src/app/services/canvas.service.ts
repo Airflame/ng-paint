@@ -93,6 +93,8 @@ export class CanvasService {
   setStartPosition({ clientX, clientY }): void {
     this.startX = clientX;
     this.startY = clientY;
+    this.prevX = this.startX;
+    this.prevY = this.startY;
   }
 
   onPaint({ clientX, clientY }): void {
