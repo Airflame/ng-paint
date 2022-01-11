@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Size:</mat-label>
-    <input matInput class="ml-auto" type="number" [formControl]="this.size" matInput/>
+    <input matInput class="ml-auto" type="number" [formControl]="this.size" data-cy="size-input" matInput/>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="ml-auto" (click)="this.confirm();" [disabled]="!this.size.valid">Ok</button>
+  <button mat-button class="ml-auto" (click)="this.confirm();" [disabled]="!this.size.valid" data-cy="ok-button">Ok</button>
 </div>
