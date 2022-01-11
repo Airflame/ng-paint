@@ -32,7 +32,7 @@ export class NewDialogComponent implements OnInit {
       this.canvasSvc.setTabData(this.name.value, this.backgroundColor.value);
     }
     this.canvasSvc.reset(this.width.value, this.height.value);
-    this.canvasSvc.clear(this.backgroundColor.value.value);
+    this.canvasSvc.clear(this.backgroundColor.value);
     this.dialogRef.close();
   }
 
