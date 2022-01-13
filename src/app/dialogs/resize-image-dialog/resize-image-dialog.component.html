@@ -6,16 +6,16 @@
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Width:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="width" (ngModelChange)="widthChanged()" matInput/>
+      <input matInput class="ml-auto" type="number" [(ngModel)]="width" (ngModelChange)="widthChanged()" data-cy="image-resize-width" matInput/>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Height:</mat-label>
-      <input matInput class="ml-auto" type="number" [(ngModel)]="height" (ngModelChange)="heightChanged()" matInput/>
+      <input matInput class="ml-auto" type="number" [(ngModel)]="height" (ngModelChange)="heightChanged()" data-cy="image-resize-height" matInput/>
     </mat-form-field>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="ml-auto" (click)="resize()" [disabled]="!isValid()">Resize</button>
+  <button mat-button class="ml-auto" (click)="resize()" [disabled]="!isValid()" data-cy="resize-image">Resize</button>
 </div>

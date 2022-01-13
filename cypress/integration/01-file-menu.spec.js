@@ -29,9 +29,9 @@ describe('File menu', () => {
     cy.contains("tab").click()
     cy.get('[data-cy=create-image]').click()
     cy.get('canvas').invoke('css', 'width')
-      .then(str => parseInt(str)).should('be.eq', 444);
+      .then(str => parseInt(str)).should('be.eq', 444)
     cy.get('canvas').invoke('css', 'height')
-      .then(str => parseInt(str)).should('be.eq', 555);
+      .then(str => parseInt(str)).should('be.eq', 555)
     cy.get('.mat-tab-label-content').contains("Test2").should('exist')
     cy.get('.mat-tab-label-content').should('have.length', 4)
   })
@@ -82,9 +82,9 @@ describe('File menu', () => {
     cy.get('[data-cy=height-input]').clear().type('500')
     cy.get('[data-cy=create-image]').click()
     cy.get('canvas').invoke('css', 'width')
-      .then(str => parseInt(str)).should('be.eq', 600);
+      .then(str => parseInt(str)).should('be.eq', 600)
     cy.get('canvas').invoke('css', 'height')
-      .then(str => parseInt(str)).should('be.eq', 500);
+      .then(str => parseInt(str)).should('be.eq', 500)
     cy.get('.mat-tab-label-content').should('have.length', 3)
     cy.contains("Image 2").click()
     cy.get('canvas').invoke('css', 'width')
