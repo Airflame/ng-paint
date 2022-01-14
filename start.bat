@@ -1,1 +1,1 @@
-call npm start
+call ng serve --open
